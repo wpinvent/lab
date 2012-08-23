@@ -32,6 +32,19 @@
   <script id="slide-item-template" type="text/html">
     <p><%= content %></p>
     <img src="<%= image.url %>" />
+    <a href="#slides/<%= id %>/edit">Edit</a>
+  </script>
+
+  <script id="slide-edit-template" type="text/html">
+    <form action="/slides/<%= id %>/edit" method="post">
+      <fieldset>
+        <legend>Edit slide</legend>
+        <textarea name="content"><%= content %></textarea>
+        <input name="image.url" value="<%= image.url %>" />
+        <a href="#slides">Cancel</a>
+        <input type="submit" value="Save"/>
+      </fieldset>
+    </form>
   </script>
 
   <script id="slide-list-empty-template" type="text/html">
@@ -49,7 +62,6 @@
   <script src="js/lib/jquery.js"></script>
   <script src="js/lib/underscore.js"></script>
   <script src="js/lib/backbone.js"></script>
-  <script src="js/lib/backbone.relational.js"></script>
   <script src="js/lib/backbone.marionette.js"></script>
 
   <script>
@@ -103,7 +115,7 @@
 
   /* Media */
 
-  var Media = Backbone.RelationalModel.extend({});
+  var Media = Backbone.Model.extend({});
   var MediaCollection = Backbone.Collection.extend({
     url: "/media",
     model: Media
@@ -125,12 +137,11 @@
 
   /* Slide */
 
-  var Slide = Backbone.RelationalModel.extend({
-    relations:[{
-      type:Backbone.HasOne,
-      key: 'image',
-      relatedModel: Media
-    }]  
+  var Slide = Backbone.Model.extend({
+    initialize:function(){
+      var image = this.get('image');
+      image && (this.image = new Media(image));
+    }
   });
  
   var SlideCollection = Backbone.Collection.extend({
@@ -138,12 +149,9 @@
     model: Slide
   });
 
-  var SlideCompositeView = Backbone.Marionette.CompositeView.extend({
+  var SlideItemView = Backbone.Marionette.ItemView.extend({
     tagName: "li",
-    template: "#slide-item-template",
-    initialize: function(){
-      console.log(this);
-    }
+    template: "#slide-item-template"
   });
 
   var SlideListEmptyView = Backbone.Marionette.ItemView.extend({ template: "#slide-list-empty-template" });
@@ -151,10 +159,21 @@
   var SlideListView = Backbone.Marionette.CollectionView.extend({
     tagName: "ul",
     className: "slide-list",
-    itemView: SlideCompositeView,
-    emptyView: SlideListEmptyView
+    itemView: SlideItemView,
+    emptyView: SlideListEmptyView,
+    beforeClose: function(){
+      this.trigger('destroy');
+    }
   });  
 
+
+  var SlideEditView = Backbone.Marionette.ItemView.extend({
+    tagName: "div",
+    template: "#slide-edit-template",
+    beforeClose: function(){
+      this.trigger('destroy');
+    }
+  });
 
   /* Deck */
 
@@ -193,8 +212,14 @@
       var collection = new SlideCollection(slides);
       Lab.layout.main.show( new SlideListView({ collection:collection }) );
     },
-    edit:function(){
-      alert('edit');
+    edit:function(id){
+      var model = _.find(slides, function(s){ return s.id == id });
+
+      window.m = new Slide(model);
+
+      window.m.bind('destroy', function(){ alert('BOOM') } );
+
+      Lab.layout.main.show(new SlideEditView({ model: window.m }));
     }    
   };
 
