@@ -4,6 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <title>Lab</title>
+  <link href="css/foundation.css" rel="stylesheet"/>
 </head>
 <body>
   <div id="lab"></div>
@@ -20,11 +21,44 @@
     <a href="<%= url %>"><%= name %></a>
   </script>
 
+  <script id="media-item-template" type="text/html">
+    Media
+  </script>
+
+  <script id="media-list-empty-template" type="text/html">
+    No medias
+  </script>
+
+  <script id="slide-item-template" type="text/html">
+    <p><%= content %></p>
+    <img src="<%= image.url %>" />
+  </script>
+
+  <script id="slide-list-empty-template" type="text/html">
+    No slides to display
+  </script>
+
+  <script id="deck-item-template" type="text/html">
+    Deck
+  </script>
+
+  <script id="deck-list-empty-template" type="text/html">
+    No decks to display
+  </script>
+
   <script src="js/lib/jquery.js"></script>
   <script src="js/lib/underscore.js"></script>
   <script src="js/lib/backbone.js"></script>
+  <script src="js/lib/backbone.relational.js"></script>
   <script src="js/lib/backbone.marionette.js"></script>
+
   <script>
+
+  var slides = [
+    { id:1, image:{ id:1, url:"http://placekitten.com/50/50" }, content:"I'm number 1" },
+    { id:2, image:{ id:2, url:"http://placekitten.com/50/50" }, content:"I'm number 2" },
+    { id:3, image:{ id:3, url:"http://placekitten.com/50/50" }, content:"I'm number 3" }
+  ]
 
   /* App */
   var Lab = new Backbone.Marionette.Application();
@@ -34,6 +68,8 @@
   });
 
   Lab.vent.on("layout:rendered", function(){
+    new LabRouter();
+    new SlidesRouter();
     Backbone.history.start();
   });
 
@@ -47,6 +83,7 @@
   });
 
   /* Navigation */
+
   var Page = Backbone.Model.extend({});
   var PageCollection = Backbone.Collection.extend({
     url: "/pages",
@@ -64,12 +101,119 @@
     itemView: PageItemView
   });  
 
-  /* Media */  
+  /* Media */
+
+  var Media = Backbone.RelationalModel.extend({});
+  var MediaCollection = Backbone.Collection.extend({
+    url: "/media",
+    model: Media
+  });
+
+  var MediaItemView = Backbone.Marionette.ItemView.extend({
+    tagName: "li",
+    template: "#media-item-template"
+  });
+
+  var MediaListEmptyView = Backbone.Marionette.ItemView.extend({ template: "#media-list-empty-template" });
+
+  var MediaListView = Backbone.Marionette.CollectionView.extend({
+    tagName: "ul",
+    className: "media-list",
+    itemView: MediaItemView,
+    emptyView: MediaListEmptyView
+  });  
+
+  /* Slide */
+
+  var Slide = Backbone.RelationalModel.extend({
+    relations:[{
+      type:Backbone.HasOne,
+      key: 'image',
+      relatedModel: Media
+    }]  
+  });
+ 
+  var SlideCollection = Backbone.Collection.extend({
+    url: "/slides",
+    model: Slide
+  });
+
+  var SlideCompositeView = Backbone.Marionette.CompositeView.extend({
+    tagName: "li",
+    template: "#slide-item-template",
+    initialize: function(){
+      console.log(this);
+    }
+  });
+
+  var SlideListEmptyView = Backbone.Marionette.ItemView.extend({ template: "#slide-list-empty-template" });
+
+  var SlideListView = Backbone.Marionette.CollectionView.extend({
+    tagName: "ul",
+    className: "slide-list",
+    itemView: SlideCompositeView,
+    emptyView: SlideListEmptyView
+  });  
 
 
+  /* Deck */
 
-  /* Slides */  
+  var Deck = Backbone.Model.extend({});
+  var DeckCollection = Backbone.Collection.extend({
+    url: "/slides",
+    model: Slide
+  });
 
+  var DeckItemView = Backbone.Marionette.ItemView.extend({
+    tagName: "li",
+    template: "#deck-item-template"
+  });
+
+  var DeckListEmptyView = Backbone.Marionette.ItemView.extend({ template: "#deck-list-empty-template" });
+
+  var DeckListView = Backbone.Marionette.CollectionView.extend({
+    tagName: "ul",
+    className: "deck-list",
+    itemView: DeckItemView,
+    emptyView: DeckListEmptyView
+  });  
+
+  /* Controller */  
+  var LabController = {
+    images:function(){
+      Lab.layout.main.show( new MediaListView() );     
+    },
+    decks:function(){
+      Lab.layout.main.show( new DeckListView() );
+    }
+  };
+
+  var SlidesController = {
+    index:function(){
+      var collection = new SlideCollection(slides);
+      Lab.layout.main.show( new SlideListView({ collection:collection }) );
+    },
+    edit:function(){
+      alert('edit');
+    }    
+  };
+
+  /* Routers */  
+  var LabRouter = Backbone.Marionette.AppRouter.extend({
+    controller: LabController,
+    appRoutes: {
+      "images":"images",
+      "decks":"decks"
+    }
+  })
+
+  var SlidesRouter = Backbone.Marionette.AppRouter.extend({
+    controller: SlidesController,
+    appRoutes: {
+      "slides":"index",
+      "slides/:id/edit": "edit"
+    }
+  })
 
 
   /* init layout */
@@ -77,14 +221,16 @@
     Lab.layout = new LabAppLayout();
     var render = Lab.layout.render();
     $('body').prepend(Lab.layout.el);
+
+    Lab.vent.trigger('layout:rendered')
   });
 
   /* init nav */
   Lab.addInitializer(function(){
     Lab.pages = new PageCollection([
-      { name:"One", url:'#one', selected:true },
-      { name:"Two", url:'#two' },
-      { name:"Tre", url:'#tre' }
+      { name:"Images", url:'#images', selected:true },
+      { name:"Slides", url:'#slides' },
+      { name:"Decks", url:'#decks' }
     ]);
 
     var view = new PageListView({ collection: Lab.pages });
