@@ -6,6 +6,95 @@
   <title>Lab</title>
 </head>
 <body>
-  <div id="app"></div>
+  <div id="lab"></div>
+  <script id="app-layout-template" type="text/html">
+    <div class="banner">
+      <a>Lab</a>
+      <div id="navigation"></div>
+    </div>
+    <div id="main"></div>  
+    <div id="footer">end</div>
+  </script>
+
+  <script id="page-item-template" type="text/html">
+    <a href="<%= url %>"><%= name %></a>
+  </script>
+
+  <script src="js/lib/jquery.js"></script>
+  <script src="js/lib/underscore.js"></script>
+  <script src="js/lib/backbone.js"></script>
+  <script src="js/lib/backbone.marionette.js"></script>
+  <script>
+
+  /* App */
+  var Lab = new Backbone.Marionette.Application();
+
+  Lab.addRegions({
+    root: "#lab"
+  });
+
+  Lab.vent.on("layout:rendered", function(){
+    Backbone.history.start();
+  });
+
+  /* App Layout */
+  var LabAppLayout = Backbone.Marionette.Layout.extend({
+    template: '#app-layout-template',
+    regions: {
+      navigation: '#navigation', 
+      main: '#main' 
+    }
+  });
+
+  /* Navigation */
+  var Page = Backbone.Model.extend({});
+  var PageCollection = Backbone.Collection.extend({
+    url: "/pages",
+    model: Page
+  });
+
+  var PageItemView = Backbone.Marionette.ItemView.extend({
+    tagName: "li",
+    template: "#page-item-template"
+  });
+
+  var PageListView = Backbone.Marionette.CollectionView.extend({
+    tagName: "ul",
+    className: "page-list",
+    itemView: PageItemView
+  });  
+
+  /* Media */  
+
+
+
+  /* Slides */  
+
+
+
+  /* init layout */
+  Lab.addInitializer(function(){
+    Lab.layout = new LabAppLayout();
+    var render = Lab.layout.render();
+    $('body').prepend(Lab.layout.el);
+  });
+
+  /* init nav */
+  Lab.addInitializer(function(){
+    Lab.pages = new PageCollection([
+      { name:"One", url:'#one', selected:true },
+      { name:"Two", url:'#two' },
+      { name:"Tre", url:'#tre' }
+    ]);
+
+    var view = new PageListView({ collection: Lab.pages });
+
+    Lab.layout.navigation.show( view );
+  });
+
+
+  Lab.start();
+  </script>  
+
 </body>
 </html>
