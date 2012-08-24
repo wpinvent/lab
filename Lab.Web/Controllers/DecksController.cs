@@ -1,27 +1,57 @@
 ﻿using System.Collections.Generic;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace Lab.Web.Controllers
 {
     using Data.Domain;
 
-    public class DecksController : Controller
+    public class DecksController : ApiController
     {
-        public JsonResult Index()
+        public ActionResult Index()
         {
-            List<Deck> decks = new List<Deck>{
-                new Deck{ DeckId = 1 },
-                new Deck{ DeckId = 2 },
-                new Deck{ DeckId = 3 }
-            };
+            List<Deck> decks = db.Decks.ToList();
 
-            return Json(decks, JsonRequestBehavior.AllowGet);
+            return DataContractSerializedJson(decks);
+        }
+
+        public ActionResult Detail(int id)
+        {
+            var deck = db.Decks.Single(d => d.DeckId == id);
+
+            return DataContractSerializedJson(deck);
         }
 
         [HttpPost]
-        public JsonResult Index(Deck deck)
+        public ActionResult Create(Deck deck)
         {
-            return Json(deck);
+            if (ModelState.IsValid)
+            {
+                db.Decks.Add(deck);
+                db.SaveChanges();
+            }
+
+            return DataContractSerializedJson(deck);
+        }
+
+        [HttpPut]
+        public ActionResult Update(int id, FormCollection collection)
+        {
+            var deck = db.Decks.Single(d => d.DeckId == id);
+            UpdateModel(deck);
+            db.SaveChanges();
+
+            return DataContractSerializedJson(deck);
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int id)
+        {
+            var deck = db.Decks.Single(d => d.DeckId == id);
+            db.Decks.Remove(deck);
+            db.SaveChanges();
+
+            return Json(new { success = true });
         }
     }
 }

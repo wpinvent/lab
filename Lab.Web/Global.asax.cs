@@ -23,9 +23,38 @@ namespace Lab.Web
             routes.IgnoreRoute("");
 
             routes.MapRoute(
-                "Decks",
+                "Update a deck",
+                "decks/{id}",
+                new { controller = "Decks", action = "Update" },
+                new { httpMethod = new HttpMethodConstraint("PUT") }
+            );
+
+            routes.MapRoute(
+                "Delete a deck",
+                "decks/{id}",
+                new { controller = "Decks", action = "Delete" },
+                new { httpMethod = new HttpMethodConstraint("DELETE") }
+            );
+
+            routes.MapRoute(
+                "Get a deck",
+                "decks/{id}",
+                new { controller = "Decks", action = "Detail" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
+            );
+
+            routes.MapRoute(
+                "Create a deck",
                 "decks",
-                new { controller = "Decks", action = "Index" }
+                new { controller = "Decks", action = "Create" },
+                new { httpMethod = new HttpMethodConstraint("POST") }
+            );
+
+            routes.MapRoute(
+                "Get decks",
+                "decks",
+                new { controller = "Decks", action = "Index" },
+                new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
             routes.MapRoute(

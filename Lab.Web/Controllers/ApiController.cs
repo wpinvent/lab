@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Lab.Data;
+using Lab.Web.Mvc;
 
 namespace Lab.Web.Controllers
 {
@@ -14,6 +15,11 @@ namespace Lab.Web.Controllers
         public ApiController()
         {
             db = new LabDbContext();
+        }
+
+        public DataContractSerializedJsonActionResult DataContractSerializedJson(object model)
+        {
+            return new DataContractSerializedJsonActionResult(model);
         }
 
         protected override void Dispose(bool disposing)
