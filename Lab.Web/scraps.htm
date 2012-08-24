@@ -1,0 +1,68 @@
+﻿  <script id="page-item-template" type="text/html">
+    <a href="<%= url %>"><%= name %></a>
+  </script>
+
+  <script id="media-item-template" type="text/html">
+    Media
+  </script>
+
+  <script id="media-list-empty-template" type="text/html">
+    No medias
+  </script>
+
+  <script id="slide-item-template" type="text/html">
+    <div class="slide" style="background-image:url('<%= image.url %>')">
+      <p class="slide-caption"><%= content %></p>
+    </div>
+    <a href="#slides/<%= id %>/edit" class="small button">Edit</a>
+  </script>
+
+  <!-- This should be another layout -->
+  <script id="slide-edit-template" type="text/html">
+    <div class="row">
+      <div class="six columns">
+        <div class="slide" style="background-image:url('<%= image.url %>')">
+          <p class="slide-caption"><%= content %></p>
+        </div>
+      </div>
+      <div class="six columns">
+        <form action="/slides/<%= id %>/edit" method="post" class="custom nice">
+          <fieldset>
+            <legend>Edit this slide</legend>
+
+            <label for="caption">Caption</label>
+            <input type="text" value="<%= content %>" />
+
+            <label for="caption">Url</label>
+            <input type="text" value="<%= url %>" />
+
+            <!-- this should be a region -->
+            <label for="caption">Background</label>
+            <div class="image-selector">
+              <ul class="images row plain">
+                <li class="image-item four columns selected"><img src="uploads/kitty-1.jpg" /></li>
+                <li class="image-item four columns"><img src="uploads/kitty-2.jpg" /></li>
+                <li class="image-item four columns"><img src="uploads/kitty-3.jpg" /></li>
+              </ul>
+            </div>
+            <div class="button-group">
+              <a href="#slides" class="button alert">Cancel</a>
+              <input type="submit" value="Save" class="button"/>
+            </div>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </script>
+
+  <script id="slide-list-empty-template" type="text/html">
+    No slides to display
+  </script>
+
+  <script id="deck-item-template" type="text/html">
+    Deck
+  </script>
+
+  <script id="deck-list-empty-template" type="text/html">
+    No decks to display
+  </script>

@@ -1,0 +1,219 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Lab</title>
+  <link href="/content/css/foundation.css" rel="stylesheet"/>
+  <link href="/content/css/app.css" rel="stylesheet"/>
+</head>
+<body>
+  <div id="lab"></div>
+  <script id="app-layout-template" type="text/html">
+    <div class="container">
+      <div class="banner">
+        <a>Lab</a>
+        <div id="navigation"></div>
+      </div>
+      <div id="main"></div>  
+      <div id="footer">end</div>
+    </div>
+  </script>
+
+  <script id="deck-layout-template" type="text/html">
+    <form action="/decks">
+      <input type="text" name="title"/>
+      <input type="submit" class="small button" value="Create">
+    </form>
+    <div id="decks"></div>
+  </script>
+
+  <script id="deck-composite-template" type="text/html">
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </script>
+
+  <script id="deck-item-template" type="text/html">
+    <td><a href="#decks/<%= id %>/edit"><%= title %></a></td>  
+  </script>
+
+  <script id="no-decks-template" type="text/html">
+    There aren't any decks :(
+  </script>
+
+  <script src="/content/js/lib/jquery.js"></script>
+  <script src="/content/js/lib/underscore.js"></script>
+  <script src="/content/js/lib/backbone.js"></script>
+  <script src="/content/js/lib/backbone.marionette.js"></script>
+  <script src="/content/js/data.js"></script>
+
+  <script>
+
+  /* App */
+  var Lab = new Backbone.Marionette.Application();
+
+  Lab.addRegions({
+    root: "#lab"
+  });
+
+  Lab.vent.on("app:layout:rendered", function(){
+    new LabRouter();
+    Backbone.history.start({silent:false});
+  });
+
+  /* App Layout */
+  var LabAppLayout = Backbone.Marionette.Layout.extend({
+    template: '#app-layout-template',
+    regions: {
+      navigation: '#navigation', 
+      main: '#main' 
+    }
+  });
+
+
+  /* Media */
+
+  var Media = Backbone.Model.extend({});
+  var MediaCollection = Backbone.Collection.extend({
+    url: "/media",
+    model: Media
+  });
+
+  var MediaItemView = Backbone.Marionette.ItemView.extend({
+    tagName: "li",
+    template: "#media-item-template"
+  });
+
+  var MediaListEmptyView = Backbone.Marionette.ItemView.extend({ template: "#media-list-empty-template" });
+
+  var MediaListView = Backbone.Marionette.CollectionView.extend({
+    tagName: "ul",
+    className: "media-list",
+    itemView: MediaItemView,
+    emptyView: MediaListEmptyView
+  });  
+
+  /* Slide */
+
+  var Slide = Backbone.Model.extend({
+    initialize:function(){
+      var image = this.get('image');
+      image && (this.image = new Media(image));
+    }
+  });
+ 
+  var SlideCollection = Backbone.Collection.extend({
+    url: "/slides",
+    model: Slide
+  });
+
+  var SlideItemView = Backbone.Marionette.ItemView.extend({
+    tagName: "li",
+    className: "slide-item",
+    template: "#slide-item-template"
+  });
+
+  var SlideListEmptyView = Backbone.Marionette.ItemView.extend({ template: "#slide-list-empty-template" });
+
+  var SlideListView = Backbone.Marionette.CollectionView.extend({
+    tagName: "ul",
+    className: "plain slide-list block-grid two-up",
+    itemView: SlideItemView,
+    emptyView: SlideListEmptyView,
+    beforeClose: function(){
+      this.trigger('destroy');
+    }
+  });  
+
+
+  var SlideEditView = Backbone.Marionette.ItemView.extend({
+    tagName: "div",
+    template: "#slide-edit-template",
+    beforeClose: function(){
+      this.trigger('destroy');
+    }
+  });
+
+  /* Deck */
+  var Deck = Backbone.Model.extend({
+    initialize:function(){
+      var slides = this.get('slides');
+      slides && (this.slides = new SlideCollection(slides));
+    }
+  });
+
+  var DeckCollection = Backbone.Collection.extend({
+    url: "/decks",
+    model: Deck
+  });
+
+  var DeckLayout = Backbone.Marionette.Layout.extend({
+    template: '#deck-layout-template',
+    regions: { main: '#decks' },
+    ui:{
+      input: '[type="text"]'
+    },
+    events: {
+      'submit':'submitted'
+    },
+    submitted:function(){
+      var title = this.ui.input.val('');
+
+      return false;
+    }
+  });
+
+  var DeckItemView = Backbone.Marionette.ItemView.extend({
+    tagName: "tr",
+    template: "#deck-item-template"
+  });
+
+  var DeckListEmptyView = Backbone.Marionette.ItemView.extend({ template: "#no-decks-template" });
+
+  var DeckCompositeView = Backbone.Marionette.CompositeView.extend({
+    className: 'decks-view',
+    template: "#deck-composite-template",
+    itemView: DeckItemView,
+    itemViewContainer: "tbody"
+  });  
+
+  /* Controller */  
+  var LabController = {
+    root:function(){
+      var deckLayout = new DeckLayout(); 
+      var decks = new DeckCollection(data.decks);
+      deckLayout.render();
+      Lab.layout.main.show( deckLayout );
+      deckLayout.main.show( new DeckCompositeView({ collection:decks  }) );
+    },
+    edit: function(){
+
+
+    }
+  };
+
+  /* Routers */  
+  var LabRouter = Backbone.Marionette.AppRouter.extend({
+    controller: LabController,
+    appRoutes: { '' : 'root' }
+  })
+
+  /* init application layout */
+  Lab.addInitializer(function(){
+    Lab.layout = new LabAppLayout();
+    var render = Lab.layout.render();
+    $('body').prepend(Lab.layout.el);
+    Lab.vent.trigger('app:layout:rendered')
+  });
+
+  Lab.start();
+  </script>  
+
+</body>
+</html>
