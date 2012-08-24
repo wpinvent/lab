@@ -1,0 +1,17 @@
+﻿fieldset { padding:15px }
+
+ol.plain, ul.plain { margin:0; padding:0; list-style:none }
+
+.container { margin:0 auto; max-width:960px }
+
+.slide-item { position:relative }
+  .slide-item .button { position:absolute; top:10px; right:25px }
+
+.slide { overflow:hidden; position:relative; height:250px; border:solid 1px #ccc; background:no-repeat; background-size:cover}
+  .slide-caption { position:absolute; bottom:10px; left:10px; right:10px; margin:0; padding:10px; background:rgba(255,255,255,.8) }
+  
+  
+.image-selector { margin:0 0 20px }  
+  .image-item { padding:5px !important; font-size:0; border-radius:3px }
+    .image-item img { margin:0 }
+    .selected { border:solid 1px #1E728C; background:#2BA6CB; }
