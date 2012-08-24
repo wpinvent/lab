@@ -92,6 +92,12 @@
     <Folder Include="Content\js\app\views\" />
     <Folder Include="Models\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Lab.Data\Lab.Data.csproj">
+      <Project>{7329F5FE-7871-4345-9B0A-80447B95C90E}</Project>
+      <Name>Lab.Data</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
