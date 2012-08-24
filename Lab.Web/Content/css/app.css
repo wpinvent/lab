@@ -3,6 +3,8 @@ table { width:100% }
 
 ol.plain, ul.plain { margin:0; padding:0; list-style:none }
 
+.banner { margin:0 0 10px; padding:10px 15px; font-size:2rem; color:#fff; background:#2BA6CB }
+
 .container { margin:0 auto; max-width:960px }
 
 .slide-item { position:relative }
