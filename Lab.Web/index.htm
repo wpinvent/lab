@@ -18,7 +18,7 @@
   <!-- Decks Index -->
 
   <script id="decks-index-layout" type="text/html">
-    <div id="deck-index-region"></div>
+    <div id="decks-index-region"></div>
   </script>
 
   <script id="decks-index-template" type="text/html">
@@ -40,6 +40,32 @@
     <td><a class="small alert button delete">x</a> <a href="#decks/<%= id %>/edit"><%= title %></a></td>  
   </script>
 
+  <!-- Decks Edit -->
+
+  <script id="deck-edit-layout" type="text/html">
+    <div id="deck-edit-region"></div>
+  </script>
+
+  <script id="deck-edit-template" type="text/html">
+  <div class="counter">
+    <span class="counter-at">0</span>/
+    <span class="counter-of">0</span>
+  </div>
+
+  <a class="button small add">Add Card</a>
+  <form>
+    <label>Caption</label>
+    <textarea name="content"></textarea>
+
+    <label>Url</label>
+    <input type="text" name="url"></textarea>
+
+    <a class="small button">Background</a>
+  </form>
+  <a class="button small prev">&laquo;</a>
+  <a class="button small next">&raquo;</a>
+  </script>
+
   <script src="/content/js/lib/jquery.js"></script>
   <script src="/content/js/lib/underscore.js"></script>
   <script src="/content/js/lib/backbone.js"></script>
@@ -50,16 +76,9 @@
 
   /* App
   /******************************/
-
   var App = new Backbone.Marionette.Application();
 
   App.addRegions({ content: "#main" });
-
-  App.vent.on("app:layout:rendered", function(){
-    new AppRouter();
-    Backbone.history.start({silent:false});
-  });
-
 
   /* Models
   /******************************/
@@ -71,6 +90,9 @@
     }  
   });
 
+  var Card = Backbone.Model.extend({});
+  var Image = Backbone.Model.extend({});
+
   /* Collections
   /******************************/
   var DeckCollection = Backbone.Collection.extend({
@@ -79,13 +101,13 @@
   });
 
 
-  /* Views
+  /* Views [Decks Index]
   /******************************/
   var DecksIndexLayout = Backbone.Marionette.Layout.extend({
     template: '#decks-index-layout',
 
     regions: {
-      decks: '#deck-index-region'
+      decks: '#decks-index-region'
     },
 
     initialize: function(){
@@ -145,12 +167,39 @@
     }
   });
 
+  /* Views [Decks Edit]
+  /******************************/
+  var DecksEditLayout = Backbone.Marionette.Layout.extend({
+    template: '#deck-edit-layout',
+
+    regions: {
+      decks: '#deck-edit-region'
+    },
+
+    onRender:function(){
+      var view = new DecksEditView({ model: this.model });      
+      this.decks.show( view );
+    }
+  });
+
+
+  var DecksEditView = Backbone.Marionette.ItemView.extend({
+    className:'decks-edit',
+    itemView: DecksTableRowView,
+    template: '#deck-edit-template'
+  });
+
   /* Controllers
   /******************************/
   var DecksController = {
     index: function(){
-      var view = new DecksIndexLayout();
-      App.content.show( view );
+      App.content.show( new DecksIndexLayout() );
+    },
+    edit: function(id){
+      var model = new Deck();      
+      model.fetch({id:id}).done(function(){
+        App.content.show( new DecksEditLayout({model:model}) );
+      });      
     }
   };
 
@@ -159,6 +208,7 @@
   var DecksRouter = Backbone.Marionette.AppRouter.extend({
     controller: DecksController,
     appRoutes: {
+      "decks/:id/edit" : "edit",
       "decks" : "index"
     }
   });
