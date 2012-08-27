@@ -18,6 +18,7 @@
       <div id="main"></div>  
     </div>
   </div>
+
   <!-- Navigation -->
   <script id="nav-item-template" type="text/html">
     <a href="<%= url %>"><%= name %></a>    
@@ -47,26 +48,39 @@
   </script>
 
   <script id="decks-index-template" type="text/html">
-    <form action="/decks" method="POST">
-      <input type="text" />
-      <input type="submit" class="button" />
-    </form>
-    <form action="/decks/activate" method="PUT" class="custom nice">
-    <table>
-      <thead>
-        <tr>
-          <th>Title</th>
-          <th>Active</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
-    </form>
+    <div class="row">
+      <div class="four columns">
+        <form action="/decks" method="POST" class="custom">
+          <fieldset>
+            <label>Description</label>
+            <input type="text" />
+            <input type="submit" class="button" value="Create deck" />
+          </fieldset>
+        </form>
+      </div>
+      <div class="eight columns">
+        <form action="/decks/activate" method="PUT" class="custom nice">
+        <table>
+          <thead>
+            <tr>
+              <th class="cell-title">Title</th>
+              <th class="cell-active">Active</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        </form>
+      </div>
+    </div>
   </script>
 
   <script id="decks-table-row-template" type="text/html">
-    <td><a class="small alert button delete">x</a> <a href="#decks/<%= id %>/edit"><%= title %></a></td>  
-    <td><input name="active" type="radio" value="<%= id %>" /></td>
+    <td class="cell-title"><a class="small alert button round delete">Delete</a> <a href="#decks/<%= id %>/edit"><%= title %></a></td>  
+    <td class="cell-active"><input name="active" type="radio" value="<%= id %>" /></td>
+  </script>
+
+  <script id="decks-empty-template" type="text/html">
+    <td colspan="2" class="no-results-cell">There aren't any decks...</td>  
   </script>
 
   <!-- Decks Edit -->
@@ -204,11 +218,16 @@
     }
   });
 
+  var DecksEmptyView = Backbone.Marionette.ItemView.extend({
+    tagName:'tr',
+    template: '#decks-empty-template'
+  });
+
   var DecksIndexView = Backbone.Marionette.CompositeView.extend({
     className:'decks-index',
     itemView: DecksTableRowView,
     template: '#decks-index-template',
-
+    emptyView: DecksEmptyView,
     events: {
       'submit':'createDeck'
     },
