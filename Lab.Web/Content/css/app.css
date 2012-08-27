@@ -1,12 +1,25 @@
 ﻿fieldset { padding:15px }
 table { width:100% }
 
+/* `Utility
+/******************************/
+
 ol.plain, ul.plain { margin:0; padding:0; list-style:none }
 
-.banner { margin:0 0 10px; padding:10px 15px; font-size:2rem; color:#fff; background:#2BA6CB }
+/* `Banner
+/******************************/
+.banner { height:40px; line-height:40px; margin:0 0 10px; font-size:2rem; color:#fff; background:#4D4D4D }
+.banner::before, .row::after { content: ""; display: table }
+  .branding { display:block; float:left; color:#e6e6e6; text-indent:10px }
+  #nav { float:right }
+    .nav-bar { margin:0 }
 
+/* `Structure
+/******************************/
 .container { margin:0 auto; max-width:960px }
 
+/* `Slides
+/******************************/
 .slide-item { position:relative }
   .slide-item .button { position:absolute; top:10px; right:25px }
 

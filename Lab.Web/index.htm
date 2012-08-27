@@ -6,15 +6,40 @@
   <title>Lab</title>
   <link href="/content/css/foundation.css" rel="stylesheet"/>
   <link href="/content/css/app.css" rel="stylesheet"/>
+  <link href="/content/css/fileuploader.css" rel="stylesheet"/>
 </head>
 <body>
   <div id="app">
-    <div class="banner">Lab</div>
+    <div class="banner">
+      <a class="branding">Lab</a>
+      <div id="nav"></div>
+    </div>
     <div class="container">
       <div id="main"></div>  
     </div>
   </div>
+  <!-- Navigation -->
+  <script id="nav-item-template" type="text/html">
+    <a href="<%= url %>"><%= name %></a>    
+  </script>
 
+  <!-- Gallery Index -->
+  <script id="gallery-index-template" type="text/html">
+    <h1>Images</h1>
+    <div id="uploader">
+      <div class="button-bar">
+        <a id="upload-button" class="button">Upload</a>
+      </div>
+    </div>
+    <div class="gallery">
+      <ul class="image-list block-grid three-up"></ul>
+    </div>
+  </script>
+
+  <script id="gallery-item-template" type="text/html">
+    <img src="/uploads/<%= url %>"/>
+    <a class="small alert button delete">x</a>
+  </script>
   <!-- Decks Index -->
 
   <script id="decks-index-layout" type="text/html">
@@ -26,18 +51,22 @@
       <input type="text" />
       <input type="submit" class="button" />
     </form>
+    <form action="/decks/activate" method="PUT" class="custom nice">
     <table>
       <thead>
         <tr>
           <th>Title</th>
+          <th>Active</th>
         </tr>
       </thead>
       <tbody></tbody>
     </table>
+    </form>
   </script>
 
   <script id="decks-table-row-template" type="text/html">
     <td><a class="small alert button delete">x</a> <a href="#decks/<%= id %>/edit"><%= title %></a></td>  
+    <td><input name="active" type="radio" value="<%= id %>" /></td>
   </script>
 
   <!-- Decks Edit -->
@@ -67,9 +96,11 @@
   </script>
 
   <script src="/content/js/lib/jquery.js"></script>
+  <script src="/content/js/lib/foundation.min.js"></script>
   <script src="/content/js/lib/underscore.js"></script>
   <script src="/content/js/lib/backbone.js"></script>
   <script src="/content/js/lib/backbone.marionette.js"></script>
+  <script src="/content/js/lib/fileuploader.js"></script>
   <script src="/content/js/data.js"></script>
 
   <script>
@@ -78,7 +109,10 @@
   /******************************/
   var App = new Backbone.Marionette.Application();
 
-  App.addRegions({ content: "#main" });
+  App.addRegions({ 
+    content: "#main",
+    nav: "#nav" 
+  });
 
   /* Models
   /******************************/
@@ -91,13 +125,48 @@
   });
 
   var Card = Backbone.Model.extend({});
-  var Image = Backbone.Model.extend({});
+  
+  var Image = Backbone.Model.extend({
+    url:function(){
+      var url = '/images', id = this.get('id');
+      id && (url += ('/'+id))
+      return url;
+    }    
+  });
+
+  var Page = Backbone.Model.extend({});
 
   /* Collections
   /******************************/
   var DeckCollection = Backbone.Collection.extend({
     url:'/decks',
     model: Deck    
+  });
+
+  var PageCollection = Backbone.Collection.extend({ model:Page });
+
+  var ImageCollection = Backbone.Collection.extend({ 
+    url:'/images',
+    model: Image 
+  });
+
+  /* Views [Navigation]
+  /******************************/
+  var NavItemView = Backbone.Marionette.ItemView.extend({
+    tagName:'li',
+    template: '#nav-item-template',
+    initialize: function(){
+      this.model.get('selected') && (this.className = 'selected')
+    }
+  });
+
+  var NavListView = Backbone.Marionette.CollectionView.extend({
+    tagName: 'ul',
+    className: 'nav-bar',
+    itemView: NavItemView,
+    initialize: function(){
+      this.collection = new PageCollection(pages);
+    }
   });
 
 
@@ -182,11 +251,50 @@
     }
   });
 
-
   var DecksEditView = Backbone.Marionette.ItemView.extend({
     className:'decks-edit',
     itemView: DecksTableRowView,
     template: '#deck-edit-template'
+  });
+
+  /* Views [Gallery Index]
+  /******************************/
+  var GalleryItemView = Backbone.Marionette.ItemView.extend({
+    tagName:'li',
+    template:'#gallery-item-template',
+    events: {
+      'click .delete':'deleteImage'
+    },
+    deleteImage:function(){
+      this.model.destroy();
+    }
+  });
+  
+  var GalleryIndexView = Backbone.Marionette.CompositeView.extend({
+    className:'gallery-index',
+    itemView: GalleryItemView,
+    itemViewContainer:'.image-list',
+    template: '#gallery-index-template',
+
+    initialize: function(){
+      this.collection = new ImageCollection();
+      this.collection.fetch();
+    },
+    onRender: function(){
+      var view = this;
+      var uploader = new qq.FileUploaderBasic({
+          element: this.$('#uploader')[0],
+          action: '/images',
+          debug: true,
+          button: this.$('#upload-button')[0],
+          onProgress: function(){},
+		      onComplete: function(id, fileName, responseJSON){
+            if (responseJSON.success){
+              view.collection.add(new Image(responseJSON.image));
+            }
+          }
+      });
+    }
   });
 
   /* Controllers
@@ -203,8 +311,21 @@
     }
   };
 
+  var GalleryController = {
+    index: function(){
+      App.content.show( new GalleryIndexView() );
+    }
+  };
+
   /* Routers
   /******************************/  
+  var GalleryRouter = Backbone.Marionette.AppRouter.extend({
+    controller: GalleryController,
+    appRoutes: {
+      "gallery" : "index"
+    }
+  });
+
   var DecksRouter = Backbone.Marionette.AppRouter.extend({
     controller: DecksController,
     appRoutes: {
@@ -218,7 +339,9 @@
   /******************************/
   App.on("initialize:after", function(){    
     new DecksRouter();
+    new GalleryRouter();
     Backbone.history.start({silent:false});
+    App.nav.show( new NavListView() )
   });
 
   App.start();

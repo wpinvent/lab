@@ -22,6 +22,8 @@ namespace Lab.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("");
 
+			#region Decks
+
             routes.MapRoute(
                 "Update a deck",
                 "decks/{id}",
@@ -57,11 +59,38 @@ namespace Lab.Web
                 new { httpMethod = new HttpMethodConstraint("GET") }
             );
 
-            routes.MapRoute(
-                "Default", // Route name
-                "{controller}/{action}/{id}", // URL with parameters
-                new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            );
+			#endregion
+
+			#region Images
+
+			routes.MapRoute(
+				"Delete an image",
+				"images/{id}",
+				new { controller = "Images", action = "Delete" },
+				new { httpMethod = new HttpMethodConstraint("DELETE") }
+			);
+
+			routes.MapRoute(
+				"Upload and Create an image",
+				"images",
+				new { controller = "Images", action = "Create" },
+				new { httpMethod = new HttpMethodConstraint("POST") }
+			);
+
+			routes.MapRoute(
+				"Get images",
+				"images",
+				new { controller = "Images", action = "Index" },
+				new { httpMethod = new HttpMethodConstraint("GET") }
+			);
+
+			#endregion
+
+			routes.MapRoute(
+				"Default", // Route name
+				"{controller}/{action}/{id}", // URL with parameters
+				new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
+			);
 
         }
 
