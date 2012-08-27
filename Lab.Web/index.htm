@@ -168,10 +168,7 @@
   /******************************/
   var NavItemView = Backbone.Marionette.ItemView.extend({
     tagName:'li',
-    template: '#nav-item-template',
-    initialize: function(){
-      this.model.get('selected') && (this.className = 'selected')
-    }
+    template: '#nav-item-template'  
   });
 
   var NavListView = Backbone.Marionette.CollectionView.extend({
