@@ -1,6 +1,6 @@
 ﻿fieldset { padding:15px }
 table { width:100% }
-
+textarea { min-height:150px; resize:vertical }
 /* `Utility
 /******************************/
 
@@ -24,37 +24,18 @@ ol.plain, ul.plain { margin:0; padding:0; list-style:none }
 .cell-title .delete { float:right }
 .cell-active { text-align:center }
 
-/* `Slides
+/* `Gallery
 /******************************/
-.slide-item { position:relative }
-  .slide-item .button { position:absolute; top:10px; right:25px }
+#uploader { margin-bottom:20px  }
 
-.slide { overflow:hidden; position:relative; height:250px; border:solid 1px #ccc; background:no-repeat; background-size:cover}
-  .slide-caption { position:absolute; bottom:10px; left:10px; right:10px; margin:0; padding:10px; background:rgba(255,255,255,.8) }
-  
-.image-selector { margin:0 0 20px }  
-  .image-item { padding:5px !important; font-size:0; border-radius:3px }
-    .image-item img { margin:0 }
-    .selected { border:solid 1px #1E728C; background:#2BA6CB; }
-    
-    
-/* `Tiny Carousel
+.gallery { padding:15px; border:solid 1px #ccc }
+  .gallery li { margin-bottom:10px }
+  .gallery .image-wrapper { font-size:0 }
+  .gallery a { display:block; text-align:center }
+
+/* `Carousel Theme
 /******************************/
-.carousel { overflow:hidden }
-  .carousel-wrap { overflow:hidden; position:relative }
-  .carousel-item { visibility:hidden; float:left; }
-
-.carousel-ready .carousel-item { visibility:visible }
-
-/* `Carousel Transitions
-/******************************/
-.carousel-wrap {
-  -webkit-transition:left 1s;
-     -moz-transition:left 1s;
-       -o-transition:left 1s;
-          transition:left 1s
-}
-
-/* `Tiny Carousel Theme
-/******************************/
-.carousel-item { width:300px } /* Currently requires set (variable) width. */
+.carousel { margin:0 auto 20px }
+.carousel, .carousel-item { width:600px; box-sizing:border-box } /* Currently requires set (variable) width. */
+  .carousel-item { height:250px; border:solid 1px #ccc; background:#4d4d4d }
+  .carousel-item .caption { position:absolute; bottom:10px; left:10px; right:10px; margin:0; padding:10px; background:rgba(255,255,255,.8) }
