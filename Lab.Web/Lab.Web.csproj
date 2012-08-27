@@ -89,9 +89,6 @@
     <Content Include="Content\js\lib\jquery.js" />
     <Content Include="Content\js\lib\underscore.js" />
     <Content Include="index.htm" />
-    <Content Include="Uploads\kitty-1.jpg" />
-    <Content Include="Uploads\kitty-2.jpg" />
-    <Content Include="Uploads\kitty-3.jpg" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -103,6 +100,7 @@
   <ItemGroup>
     <Folder Include="Content\js\app\models\" />
     <Folder Include="Content\js\app\views\" />
+    <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Lab.Data\Lab.Data.csproj">
