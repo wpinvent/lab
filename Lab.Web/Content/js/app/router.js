@@ -1,8 +1,10 @@
-﻿define(
-['backbone','marionette','app/controller'],
-function(Backbone, Marionette, Controller){  
+﻿define(function(require){
+  var backbone = require('backbone'),
+      marionette = require('marionette'),
+      controller = require('app/controller');
+
   return Backbone.Marionette.AppRouter.extend({
-    controller: Controller,
+    controller: controller,
     appRoutes:{
       '':'root'
     }

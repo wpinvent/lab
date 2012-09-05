@@ -1,13 +1,12 @@
-﻿define(
-  ['backbone','marionette'], 
-  function(Backbone, Marionette, Router){
-
-    var App = new Backbone.Marionette.Application();
+﻿define(function(require){
+  var backbone = require('backbone'),
+      marionette = require('marionette'),
+      app = new Backbone.Marionette.Application();
   
-    App.addRegions({ 
+    app.addRegions({ 
       content: "#app"
     });  
 
-    return App;
+    return app;
   }
 );

@@ -1,4 +1,5 @@
-﻿using System.Runtime.Serialization;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace Lab.Data.Domain
 {
@@ -8,7 +9,8 @@ namespace Lab.Data.Domain
         [DataMember(Name = "id")]
         public int ImageId { get; set; }
 
-        [DataMember(Name = "url")]
-        public string Url { get; set; }
+        [Required]
+        [DataMember(Name = "file_name")]
+        public string FileName { get; set; }
     }
 }

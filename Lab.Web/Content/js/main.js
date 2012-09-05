@@ -9,12 +9,17 @@
   urlArgs: "bust=" +  (new Date()).getTime()
 });
 
-require(
-  ['jquery', 'underscore', 'backbone', 'marionette', 'app/app', 'app/router'],
-  function($, _, Backbone, Marionette, App, Router){
+require(function(require){
+
+  var $ = require('jquery'),
+      _ = require('underscore'),
+      backbone = require('backbone'),
+      marionette = require('marionette'),
+      app = require('app/app'),
+      router = require('app/router');
 
     // Bootstrap Marionette so that the template function will take a string input
-    Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(templateId) {
+    backbone.Marionette.TemplateCache.prototype.loadTemplate = function(templateId) {
         // Marionette expects "templateId" to be the ID of a DOM element.
         // But with RequireJS, templateId is actually the full text of the template.
         var template = templateId;
@@ -30,13 +35,11 @@ require(
         return template;
     }
 
-    App.on("initialize:after", function(){    
-      new Router();
-      Backbone.history.start({silent:false});
+    app.on("initialize:after", function(){    
+      new router();
+      backbone.history.start({silent:false});
     });
 
-    App.start();
+    app.start();
 
-
-  }
-);
+});

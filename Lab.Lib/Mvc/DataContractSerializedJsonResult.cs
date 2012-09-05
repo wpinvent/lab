@@ -4,7 +4,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Web.Mvc;
 
-namespace Lab.Web.Mvc
+namespace Lab.Lib.Mvc
 {
     public class DataContractSerializedJsonActionResult : ActionResult
     {

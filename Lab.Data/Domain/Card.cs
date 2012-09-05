@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 namespace Lab.Data.Domain
 {
@@ -8,6 +9,7 @@ namespace Lab.Data.Domain
         [DataMember(Name = "id")]
         public int CardId { get; set; }
 
+        [Required]
         [DataMember(Name = "content")]
         public string Content { get; set; }
 
