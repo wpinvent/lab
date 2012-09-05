@@ -2,7 +2,7 @@
   var backbone = require('backbone'),
       media = require('app/models/media');
 
-  return backbone.Model.extend({
+  return backbone.Collection.extend({
     model: media,
     url:'/media'
   });

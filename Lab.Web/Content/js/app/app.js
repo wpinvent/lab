@@ -1,12 +1,7 @@
-﻿define(function(require){
-  var backbone = require('backbone'),
-      marionette = require('marionette'),
-      app = new Backbone.Marionette.Application();
-  
-    app.addRegions({ 
-      content: "#app"
-    });  
+﻿define(['backbone', 'marionette'], function(Backbone, Marionette){
+    var app = new Backbone.Marionette.Application();  
 
+    app.addRegions({ main: "#main" });  
+    
     return app;
-  }
-);
+});

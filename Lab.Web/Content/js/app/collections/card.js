@@ -2,7 +2,7 @@
   var backbone = require('backbone'),
       card = require('app/models/card');
 
-  return backbone.Model.extend({
+  return backbone.Collection.extend({
     model: card,
     url:'/cards'
   });

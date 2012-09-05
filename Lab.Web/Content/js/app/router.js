@@ -1,12 +1,11 @@
-﻿define(function(require){
-  var backbone = require('backbone'),
-      marionette = require('marionette'),
-      controller = require('app/controller');
+﻿define(['backbone', 'marionette', 'app/controllers/controller'], function(Backbone, Marionette, Controller){
 
-  return Backbone.Marionette.AppRouter.extend({
-    controller: controller,
+  var router = Backbone.Marionette.AppRouter.extend({
+    controller: Controller,
     appRoutes:{
       '':'root'
     }
   });
+
+  return router;
 });
