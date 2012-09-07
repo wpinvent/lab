@@ -4,7 +4,8 @@
     marionette: 'lib/backbone.marionette',
     foundation: 'lib/foundation.min.js',
     jquery:     'lib/jquery',
-    underscore: 'lib/underscore'
+    underscore: 'lib/underscore',
+    moment:     'lib/moment'
   },
   urlArgs: "bust=" +  (new Date()).getTime()
 });

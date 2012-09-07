@@ -13,9 +13,9 @@ namespace Lab.Web.Controllers
             db = new LabDbContext();
         }
 
-        public DataContractSerializedJsonActionResult DataContractSerializedJson(object model)
+        public JsonNetSerializedActionResult JsonNetSerializedJson(object model)
         {
-            return new DataContractSerializedJsonActionResult(model);
+            return new JsonNetSerializedActionResult(model);
         }
 
         protected override void Dispose(bool disposing)

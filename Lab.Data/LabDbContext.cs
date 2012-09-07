@@ -14,10 +14,10 @@ namespace Lab.Data
         {
             modelBuilder.Entity<Deck>()
                 .HasMany<Card>(d => d.Cards)
-                .WithOptional();
+                .WithMany();
 
             modelBuilder.Entity<Card>()
-                .HasRequired<Image>(c => c.Image);
+                .HasRequired<Image>(c => c.Image);                
 
             base.OnModelCreating(modelBuilder);
         }

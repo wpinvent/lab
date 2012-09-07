@@ -12,14 +12,14 @@ namespace Lab.Web.Controllers
         {
             List<Deck> decks = db.Decks.ToList();
 
-            return DataContractSerializedJson(decks);
+            return JsonNetSerializedJson(decks);
         }
 
         public ActionResult Detail(int id)
         {
             var deck = db.Decks.Single(d => d.DeckId == id);
 
-            return DataContractSerializedJson(deck);
+            return JsonNetSerializedJson(deck);
         }
 
         [HttpPost]
@@ -31,7 +31,7 @@ namespace Lab.Web.Controllers
                 db.SaveChanges();
             }
 
-            return DataContractSerializedJson(deck);
+            return JsonNetSerializedJson(deck);
         }
 
         [HttpPut]
@@ -41,7 +41,7 @@ namespace Lab.Web.Controllers
             UpdateModel(deck);
             db.SaveChanges();
 
-            return DataContractSerializedJson(deck);
+            return JsonNetSerializedJson(deck);
         }
 
         [HttpDelete]

@@ -7,12 +7,12 @@ function(Backbone, Marionette, DeckCollection, ItemView, Template){
     itemViewContainer: 'tbody',
     
     initialize: function(){
-      this.collection.fetch();      
       this.bindViewEvents();
+      this.collection.fetch();
     },
 
     bindViewEvents:function(){
-      var collection = this.collection;
+      var collection = this.collection;      
       this.on("itemview:removed:model", function(childView){
         collection.remove(childView.model);        
       })

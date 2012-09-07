@@ -15,7 +15,7 @@ namespace Lab.Web.Controllers
 		{
 			List<Image> images = db.Images.ToList();
 
-			return DataContractSerializedJson(images);
+			return JsonNetSerializedJson(images);
 		}
 
 		[HttpPost]		
@@ -29,7 +29,7 @@ namespace Lab.Web.Controllers
 
 			try
 			{
-				entity.Url = fileManager.Save(Request.Params["qqfile"], Request.InputStream ?? Request.Files[0].InputStream);
+				entity.FileName = fileManager.Save(Request.Params["qqfile"], Request.InputStream ?? Request.Files[0].InputStream);
 
 				db.Images.Add(entity);
 
@@ -44,7 +44,7 @@ namespace Lab.Web.Controllers
 
 			}
 
-            return DataContractSerializedJson(model);
+            return JsonNetSerializedJson(model);
         }
 
 		[HttpDelete]
@@ -57,7 +57,7 @@ namespace Lab.Web.Controllers
 
 				FileManager manager = new FileManager();
 
-				manager.DeleteFile(image.Url);
+				manager.DeleteFile(image.FileName);
 
 				db.SaveChanges();
 			}
