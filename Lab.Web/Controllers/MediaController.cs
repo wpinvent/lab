@@ -9,11 +9,11 @@ using Lab.Lib.IO;
 
 namespace Lab.Web.Controllers
 {
-    public class ImagesController : ApiController
+    public class MediaController : ApiController
     {
 		public ActionResult Index()
 		{
-			List<Image> images = db.Images.ToList();
+			List<Media> images = db.Images.ToList();
 
 			return JsonNetSerializedJson(images);
 		}
@@ -21,7 +21,7 @@ namespace Lab.Web.Controllers
 		[HttpPost]		
         public ActionResult Create()
         {
-			var entity = new Image();
+			var entity = new Media();
 
 			var model = new ImageCreateViewModel();
 
@@ -30,7 +30,7 @@ namespace Lab.Web.Controllers
 			try
 			{
 				entity.FileName = fileManager.Save(Request.Params["qqfile"], Request.InputStream ?? Request.Files[0].InputStream);
-
+                
 				db.Images.Add(entity);
 
 				db.SaveChanges();

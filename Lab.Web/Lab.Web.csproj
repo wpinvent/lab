@@ -65,7 +65,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ApiController.cs" />
     <Compile Include="Controllers\DecksController.cs" />
-    <Compile Include="Controllers\ImagesController.cs" />
+    <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -80,9 +80,13 @@
     <Content Include="Content\js\app\controllers\controller.js" />
     <Content Include="Content\js\app\templates\decks\table-row.htm" />
     <Content Include="Content\js\app\templates\decks\table.htm" />
+    <Content Include="Content\js\app\templates\media\list-item.htm" />
     <Content Include="Content\js\app\views\decks\table-row.js" />
     <Content Include="Content\js\app\views\decks\index.js" />
     <Content Include="Content\js\app\views\decks\table.js" />
+    <Content Include="Content\js\app\views\media\index.js" />
+    <Content Include="Content\js\app\views\media\list-item.js" />
+    <Content Include="Content\js\app\views\media\list.js" />
     <Content Include="Content\js\i18n.js" />
     <Content Include="Content\js\app\app.js" />
     <Content Include="Content\js\app\collections\card.js" />
@@ -93,7 +97,6 @@
     <Content Include="Content\js\app\models\deck.js" />
     <Content Include="Content\js\app\router.js" />
     <Content Include="Content\js\app\templates\decks\index.htm" />
-    <Content Include="Content\js\app\templates\media\index-layout.htm" />
     <Content Include="Content\js\app\templates\media\index.htm" />
     <Content Include="Content\js\lib\fileuploader.js" />
     <Content Include="Content\js\lib\foundation.min.js" />
@@ -118,7 +121,6 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\js\app\views\media\" />
     <Folder Include="Uploads\" />
   </ItemGroup>
   <ItemGroup>

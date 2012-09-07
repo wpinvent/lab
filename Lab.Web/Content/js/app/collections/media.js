@@ -1,9 +1,6 @@
-﻿define(function(require){
-  var backbone = require('backbone'),
-      media = require('app/models/media');
-
-  return backbone.Collection.extend({
-    model: media,
+﻿define(['backbone','app/models/media'], function(Backbone, Media){
+  return Backbone.Collection.extend({
+    model: Media,
     url:'/media'
   });
 });

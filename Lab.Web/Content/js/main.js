@@ -5,7 +5,8 @@
     foundation: 'lib/foundation.min.js',
     jquery:     'lib/jquery',
     underscore: 'lib/underscore',
-    moment:     'lib/moment'
+    moment:     'lib/moment',
+    uploader:   'lib/fileuploader'
   },
   urlArgs: "bust=" +  (new Date()).getTime()
 });

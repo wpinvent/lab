@@ -3,6 +3,8 @@
   var router = Backbone.Marionette.AppRouter.extend({
     controller: Controller,
     appRoutes:{
+      media:'media',
+      decks:'root',
       '':'root'
     }
   });

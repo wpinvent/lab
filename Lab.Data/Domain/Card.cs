@@ -17,6 +17,6 @@ namespace Lab.Data.Domain
         public string Url { get; set; }
 
         [DataMember(Name = "image")]
-        public Image Image { get; set; }
+        public Media Image { get; set; }
     }
 }

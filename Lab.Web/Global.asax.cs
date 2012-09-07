@@ -65,22 +65,22 @@ namespace Lab.Web
 
 			routes.MapRoute(
 				"Delete an image",
-				"images/{id}",
-				new { controller = "Images", action = "Delete" },
+				"media/{id}",
+				new { controller = "Media", action = "Delete" },
 				new { httpMethod = new HttpMethodConstraint("DELETE") }
 			);
 
 			routes.MapRoute(
 				"Upload and Create an image",
-				"images",
-				new { controller = "Images", action = "Create" },
+                "media",
+                new { controller = "Media", action = "Create" },
 				new { httpMethod = new HttpMethodConstraint("POST") }
 			);
 
 			routes.MapRoute(
 				"Get images",
-				"images",
-				new { controller = "Images", action = "Index" },
+                "media",
+                new { controller = "Media", action = "Index" },
 				new { httpMethod = new HttpMethodConstraint("GET") }
 			);
 

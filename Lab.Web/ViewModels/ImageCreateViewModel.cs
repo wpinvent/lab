@@ -7,7 +7,7 @@ namespace Lab.Web.ViewModels
 	public class ImageCreateViewModel
 	{
 		[DataMember(Name = "image")]
-		public Image Image { get; set; }
+		public Media Image { get; set; }
 
 		[DataMember(Name = "success")]
 		public bool Success { get; set; }
