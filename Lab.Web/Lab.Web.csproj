@@ -87,6 +87,7 @@
     <Content Include="Content\js\app\views\media\index.js" />
     <Content Include="Content\js\app\views\media\list-item.js" />
     <Content Include="Content\js\app\views\media\list.js" />
+    <Content Include="Content\js\app\views\shared\reveal.js" />
     <Content Include="Content\js\i18n.js" />
     <Content Include="Content\js\app\app.js" />
     <Content Include="Content\js\app\collections\card.js" />

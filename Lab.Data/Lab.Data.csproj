@@ -48,7 +48,7 @@
   <ItemGroup>
     <Compile Include="Domain\Card.cs" />
     <Compile Include="Domain\Deck.cs" />
-    <Compile Include="Domain\Image.cs" />
+    <Compile Include="Domain\Media.cs" />
     <Compile Include="LabDbContext.cs" />
     <Compile Include="LabDbInitializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
