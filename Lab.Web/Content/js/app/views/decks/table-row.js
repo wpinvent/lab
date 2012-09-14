@@ -9,6 +9,7 @@ function(Backbone, Marionette, Moment, Template){
       },
 
       localizedDate: function(isoString){
+        if (!isoString) return 'N/A';
         var date = new Date(isoString);
         return new Moment(date).format('L ZZ');
       }

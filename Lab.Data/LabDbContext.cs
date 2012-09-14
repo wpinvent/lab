@@ -8,7 +8,7 @@ namespace Lab.Data
     {
         public DbSet<Deck> Decks { get; set; }
         public DbSet<Card> Cards { get; set; }
-        public DbSet<Media> Images { get; set; }
+        public DbSet<Media> Media { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -17,7 +17,7 @@ namespace Lab.Data
                 .WithMany();
 
             modelBuilder.Entity<Card>()
-                .HasRequired<Media>(c => c.Image);                
+                .HasRequired<Media>(c => c.Media);                
 
             base.OnModelCreating(modelBuilder);
         }

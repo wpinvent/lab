@@ -13,7 +13,7 @@ namespace Lab.Web.Controllers
     {
 		public ActionResult Index()
 		{
-			List<Media> images = db.Images.ToList();
+			List<Media> images = db.Media.ToList();
 
 			return JsonNetSerializedJson(images);
 		}
@@ -30,8 +30,8 @@ namespace Lab.Web.Controllers
 			try
 			{
 				entity.FileName = fileManager.Save(Request.Params["qqfile"], Request.InputStream ?? Request.Files[0].InputStream);
-                
-				db.Images.Add(entity);
+
+                db.Media.Add(entity);
 
 				db.SaveChanges();
 
@@ -52,8 +52,8 @@ namespace Lab.Web.Controllers
 		{
 			try
 			{
-				var image = db.Images.Single(i => i.ImageId == id);
-				db.Images.Remove(image);
+                var image = db.Media.Single(i => i.MediaId == id);
+                db.Media.Remove(image);
 
 				FileManager manager = new FileManager();
 

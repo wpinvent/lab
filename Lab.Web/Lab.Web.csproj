@@ -99,6 +99,7 @@
     <Content Include="Content\js\app\router.js" />
     <Content Include="Content\js\app\templates\decks\index.htm" />
     <Content Include="Content\js\app\templates\media\index.htm" />
+    <Content Include="Content\js\lib\backbone.syphon.js" />
     <Content Include="Content\js\lib\fileuploader.js" />
     <Content Include="Content\js\lib\foundation.min.js" />
     <Content Include="Content\js\lib\moment.js" />

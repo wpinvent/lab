@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
+using System.Collections.Generic;
 
 namespace Lab.Lib.Mvc
 {
@@ -17,7 +18,7 @@ namespace Lab.Lib.Mvc
         public override void ExecuteResult(ControllerContext context)
         {
             var json = JsonConvert.SerializeObject(this.Data, new IsoDateTimeConverter());
-
+            
             context.HttpContext.Response.ContentType = "application/json";
 
             context.HttpContext.Response.Write(json);

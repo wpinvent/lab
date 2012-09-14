@@ -7,7 +7,7 @@ namespace Lab.Data.Domain
     public class Media
     {
         [DataMember(Name = "id")]
-        public int ImageId { get; set; }
+        public int MediaId { get; set; }
 
         [Required]
         [DataMember(Name = "file_name")]

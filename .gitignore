@@ -2,6 +2,6 @@
 bin
 obj
 [Ww]eb.config
-
+Uploads
 # mstest test results
 TestResults

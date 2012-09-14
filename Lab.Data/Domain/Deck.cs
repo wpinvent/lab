@@ -19,20 +19,20 @@ namespace Lab.Data.Domain
         public ICollection<Card> Cards { get; set; }
 
         [DataMember(Name = "starts_on")]
-        public DateTime StartsOn { get; set; }
+        public DateTime? StartsOn { get; set; }
 
         [DataMember(Name = "ends_on")]
-        public DateTime EndsOn { get; set; }
+        public DateTime? EndsOn { get; set; }
 
         [DataMember(Name = "enabled")]
         public bool Enabled { get; set; }
 
         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
         {
-            if (StartsOn <= DateTime.Now)
+            if (StartsOn.HasValue && StartsOn <= DateTime.Now)
                 yield return new ValidationResult("Starting date must occur in the future", new[] { "StartsOn" });
 
-            if (EndsOn >= StartsOn)
+            if (StartsOn.HasValue && EndsOn.HasValue && EndsOn >= StartsOn)
                 yield return new ValidationResult("Date to end must occur after the start date.", new [] { "EndsOn" });
         }
     }

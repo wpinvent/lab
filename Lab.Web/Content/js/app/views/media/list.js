@@ -2,7 +2,7 @@
 function(Backbone, Marionette, MediaCollection, ItemView, Template){
   var view = Backbone.Marionette.CollectionView.extend({
     tagName:'ol',
-    className: 'media-list',
+    className: 'media-list block-grid four-up',
     itemView: ItemView,
     
     initialize: function(){

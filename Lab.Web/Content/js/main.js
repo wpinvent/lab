@@ -2,6 +2,7 @@
   paths: {
     backbone:   'lib/backbone',
     marionette: 'lib/backbone.marionette',
+    syphon:     'lib/backbone.syphon',
     foundation: 'lib/foundation.min.js',
     jquery:     'lib/jquery',
     underscore: 'lib/underscore',
