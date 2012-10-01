@@ -22,6 +22,45 @@ namespace Lab.Web
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.IgnoreRoute("");
 
+			#region Cards
+
+			routes.MapRoute(
+				"Update a card",
+				"card/{id}",
+				new { controller = "Cards", action = "Update" },
+				new { httpMethod = new HttpMethodConstraint("PUT") }
+			);
+
+			routes.MapRoute(
+				"Delete a card",
+				"card/{id}",
+				new { controller = "Cards", action = "Delete" },
+				new { httpMethod = new HttpMethodConstraint("DELETE") }
+			);
+
+			routes.MapRoute(
+				"Get a card",
+				"card/{id}",
+				new { controller = "Cards", action = "Detail" },
+				new { httpMethod = new HttpMethodConstraint("GET") }
+			);
+
+			routes.MapRoute(
+				"Create a card",
+				"cards",
+				new { controller = "Cards", action = "Create" },
+				new { httpMethod = new HttpMethodConstraint("POST") }
+			);
+
+			routes.MapRoute(
+				"Get cards",
+				"cards",
+				new { controller = "Cards", action = "Index" },
+				new { httpMethod = new HttpMethodConstraint("GET") }
+			);
+
+			#endregion
+
 			#region Decks
 
             routes.MapRoute(

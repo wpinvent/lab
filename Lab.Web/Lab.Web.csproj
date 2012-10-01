@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\ApiController.cs" />
+    <Compile Include="Controllers\CardsController.cs" />
     <Compile Include="Controllers\DecksController.cs" />
     <Compile Include="Controllers\MediaController.cs" />
     <Compile Include="Global.asax.cs">
@@ -77,10 +78,25 @@
     <Content Include="Content\css\carousel.css" />
     <Content Include="Content\css\fileuploader.css" />
     <Content Include="Content\css\foundation.css" />
-    <Content Include="Content\js\app\controllers\controller.js" />
+    <Content Include="Content\js\app\controllers\cards.js" />
+    <Content Include="Content\js\app\controllers\root.js" />
+    <Content Include="Content\js\app\controllers\media.js" />
+    <Content Include="Content\js\app\controllers\decks.js" />
+    <Content Include="Content\js\app\routers\cards.js" />
+    <Content Include="Content\js\app\routers\media.js" />
+    <Content Include="Content\js\app\routers\decks.js" />
+    <Content Include="Content\js\app\routers\initializer.js" />
+    <Content Include="Content\js\app\templates\cards\list-item-edit.htm" />
+    <Content Include="Content\js\app\templates\cards\index.htm" />
+    <Content Include="Content\js\app\templates\cards\list-item.htm" />
+    <Content Include="Content\js\app\templates\decks\edit.htm" />
     <Content Include="Content\js\app\templates\decks\table-row.htm" />
     <Content Include="Content\js\app\templates\decks\table.htm" />
     <Content Include="Content\js\app\templates\media\list-item.htm" />
+    <Content Include="Content\js\app\views\cards\index.js" />
+    <Content Include="Content\js\app\views\cards\list-item.js" />
+    <Content Include="Content\js\app\views\cards\list.js" />
+    <Content Include="Content\js\app\views\decks\edit.js" />
     <Content Include="Content\js\app\views\decks\table-row.js" />
     <Content Include="Content\js\app\views\decks\index.js" />
     <Content Include="Content\js\app\views\decks\table.js" />
@@ -96,13 +112,14 @@
     <Content Include="Content\js\app\models\card.js" />
     <Content Include="Content\js\app\models\media.js" />
     <Content Include="Content\js\app\models\deck.js" />
-    <Content Include="Content\js\app\router.js" />
+    <Content Include="Content\js\app\routers\root.js" />
     <Content Include="Content\js\app\templates\decks\index.htm" />
     <Content Include="Content\js\app\templates\media\index.htm" />
     <Content Include="Content\js\lib\backbone.syphon.js" />
     <Content Include="Content\js\lib\fileuploader.js" />
     <Content Include="Content\js\lib\foundation.min.js" />
     <Content Include="Content\js\lib\moment.js" />
+    <Content Include="Content\js\lib\plugins\jquery.dropdown.js" />
     <Content Include="Content\js\lib\plugins\jquery.tiny-carousel.js" />
     <Content Include="Content\js\main.js" />
     <Content Include="Content\js\require.js" />

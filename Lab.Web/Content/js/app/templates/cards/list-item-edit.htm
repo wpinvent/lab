@@ -1,0 +1,15 @@
+﻿<div class="image-container">
+  <figure><img src="<%= fileUrl(image.file_name) %>" /></figure>    
+</div>
+<form action="">
+  <label for="url">Url:</label>
+  <input id="url" name="url" type="text" placeholder="To where should this card link?" />
+  <label for="caption">Caption:</label>
+  <textarea><%= getContent %></textarea>
+  <div class="pull right">
+    <a class="button alert cancel-button">Cancel</a>
+    <button type="submit" class="button">Save</button>
+  </div>
+</form>
+
+ 

@@ -11,17 +11,23 @@
 </head>
 <body>
   <div id="app">
-    <div class="banner">
-      <a class="branding">Lab</a>
-      <ul id="nav" class="nav-bar">
-        <li><a href="#decks">Decks</a></li>
-        <li><a href="#slides">Slides</a></li>
-        <li><a href="#media">Media</a></li>        
-      </ul>
-    </div>
+    <nav class="banner top-bar">
+      <a href="/" class="branding">Lab</a>
+      <section>
+        <ul id="nav" class="right">
+          <li><a href="#decks">Decks</a></li>
+          <li><a href="#cards">Cards</a></li>
+          <li><a href="#media">Media</a></li>
+        </ul>
+      </section>
+    </nav>
     <div class="container">
       <div id="main"></div>  
     </div>
+  </div>
+  <div id="modal" class="reveal-modal">
+    <div id="modal-content"></div>
+    <a class="close-reveal-modal">x</a>
   </div>
 </body>
 </html>

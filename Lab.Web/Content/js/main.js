@@ -3,7 +3,7 @@
     backbone:   'lib/backbone',
     marionette: 'lib/backbone.marionette',
     syphon:     'lib/backbone.syphon',
-    foundation: 'lib/foundation.min.js',
+    foundation: 'lib/foundation.min',
     jquery:     'lib/jquery',
     underscore: 'lib/underscore',
     moment:     'lib/moment',
@@ -12,7 +12,7 @@
   urlArgs: "bust=" +  (new Date()).getTime()
 });
 
-requirejs(['jquery', 'underscore', 'backbone', 'marionette', 'app/app', 'app/router'], function($, _, Backbone, Marionette, App, Router){
+requirejs(['jquery', 'underscore', 'backbone', 'marionette', 'app/app', 'app/routers/initializer', 'app/views/shared/reveal'], function($, _, Backbone, Marionette, App, RouteInitializer, RevealView){
 
     // Bootstrap Marionette so that the template function will take a string input
     Backbone.Marionette.TemplateCache.prototype.loadTemplate = function(templateId) {
@@ -28,13 +28,20 @@ requirejs(['jquery', 'underscore', 'backbone', 'marionette', 'app/app', 'app/rou
       return template;
     }
 
+
+    var modal = new RevealView({ el: $('#modal') });
+
     App.on("initialize:after", function(){    
-      new Router();
-      Backbone.history.start({silent:false});
+      RouteInitializer.initialize();
+      Backbone.history.start( { silent:false } );
+    });
+
+    App.on("modal:show", function( contentView ){
+      modal.content.show( contentView );
+      modal.show();
     });
 
     App.start();
-
 });
 
 

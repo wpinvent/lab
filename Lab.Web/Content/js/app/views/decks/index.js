@@ -8,7 +8,10 @@ function(Backbone, Marionette, Syphon, Deck, DecksTableView, DecksIndexTemplate)
       decks: '#decks' 
     },
     
-    ui: { $form:'form' },
+    ui: { 
+      $form:  'form',
+      $input: 'input'
+    },
 
     events: {'submit form' : 'createDeck'},
 
@@ -26,7 +29,13 @@ function(Backbone, Marionette, Syphon, Deck, DecksTableView, DecksIndexTemplate)
     createDeck:function(){
       var data = Backbone.Syphon.serialize(this);      
       this.collection.create(data, { wait:true });
+      this.resetForm();
       return false;
+    },
+
+    resetForm:function(){
+      this.ui.$form[0].reset();
+      this.ui.$input.focus();
     }
   });
 
