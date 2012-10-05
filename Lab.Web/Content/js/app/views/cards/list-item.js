@@ -18,6 +18,10 @@ function(Backbone, Marionette, DisplayTemplate, EditTemplate){
       }
     },
 
+    triggers:{
+      'click':'selected'
+    },
+
     events:{ 
       'click .cancel-button' : 'cancel',
       'click .delete-button' : 'destroy',

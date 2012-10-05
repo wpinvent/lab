@@ -2,13 +2,16 @@
   'app/app',
   'app/models/card',
   'app/collections/card',
-  'app/views/cards/index'
-], 
-function(app, Card, CardCollection, CardsIndexView){
+  'app/views/cards/index',
+  'app/views/cards/create'
+],
+function(app, Card, CardCollection, CardsIndexView, CardCreateView){
   var methods = {
     index: function(){
-      var cards = new CardCollection();
-      app.main.show( new CardsIndexView({ collection:cards }) );
+      app.main.show( new CardsIndexView() );
+    },
+    create: function(){
+      app.main.show( new CardCreateView() );
     }
   };
   return methods;

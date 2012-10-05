@@ -1,14 +1,14 @@
-﻿define(['backbone','marionette','app/collections/deck', 'app/views/decks/table-row', 'text!app/templates/decks/table.htm'], 
-function(Backbone, Marionette, DeckCollection, ItemView, Template){
+﻿define(['backbone','marionette','app/data','app/collections/deck', 'app/views/decks/table-row', 'text!app/templates/decks/table.htm'], 
+function(Backbone, Marionette, Data, DeckCollection, ItemView, Template){
   var view = Backbone.Marionette.CompositeView.extend({
     tagName:'table',
     template: Template,
     itemView: ItemView,
     itemViewContainer: 'tbody',
+    collection: Data.Decks,
     
     initialize: function(){
       this.bindViewEvents();
-      this.collection.fetch();
     },
 
     bindViewEvents:function(){

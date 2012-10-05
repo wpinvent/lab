@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IO\FileManager.cs" />
+    <Compile Include="Mvc\Razor\HtmlHelperExtensions.cs" />
     <Compile Include="Mvc\JsonNetSerializedJsonResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

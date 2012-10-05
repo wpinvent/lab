@@ -1,13 +1,13 @@
-﻿define(['backbone','marionette','app/collections/card', 'app/views/cards/list-item'], 
-function(Backbone, Marionette, SlideCollection, ItemView, Template){
+﻿define(['backbone','marionette','app/data','app/collections/card', 'app/views/cards/list-item'], 
+function(Backbone, Marionette,Data, SlideCollection, ItemView, Template){
   var view = Backbone.Marionette.CollectionView.extend({
     tagName:'ol',
     className: 'card-list plain block-grid two-up',
     itemView: ItemView,
+    collection: Data.Cards,
       
     initialize: function(){
       this.bindViewEvents();
-      this.collection.fetch();
     },
 
     bindViewEvents:function(){

@@ -8,10 +8,6 @@ function(Backbone, Marionette, App, Card, CardListView, CardCreateView, CardsInd
       cards: '#cards'
     },
     
-    events: {
-      'click .create-button': 'showCreateView'
-    },
-
     initialize:function(){
       this.bindViewEvents();
     },
@@ -19,20 +15,8 @@ function(Backbone, Marionette, App, Card, CardListView, CardCreateView, CardsInd
     bindViewEvents: function(){
       var view = this;
       view.on('show', function(){
-        view.cards.show( new CardListView({ collection:view.collection }) );
+        view.cards.show( new CardListView() );
       });
-    },
-
-    showCreateView: function(){
-      var model = new Card(),
-          view = new CardCreateView({ 
-            model: model, 
-            cssSize:'large' 
-          });
-
-      App.trigger('modal:show', view);
-
-      return false;
     }
   });
 

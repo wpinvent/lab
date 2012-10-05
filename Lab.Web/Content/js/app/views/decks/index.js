@@ -4,6 +4,7 @@ function(Backbone, Marionette, Syphon, Deck, DecksTableView, DecksIndexTemplate)
   var view = Backbone.Marionette.Layout.extend({
     className:'decks',
     template: DecksIndexTemplate,
+
     regions: {
       decks: '#decks' 
     },
@@ -22,7 +23,7 @@ function(Backbone, Marionette, Syphon, Deck, DecksTableView, DecksIndexTemplate)
     bindViewEvents: function(){
       var view = this;
       view.on('show', function(){
-        view.decks.show( new DecksTableView({ collection:view.collection }) );
+        view.decks.show( new DecksTableView() );
       });
     },
 
