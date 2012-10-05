@@ -24,6 +24,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <FilesToIncludeForPublish>AllFilesInTheProject</FilesToIncludeForPublish>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -76,10 +77,38 @@
     <Compile Include="ViewModels\InitializationViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\build.js" />
+    <Content Include="Content\almond.js" />
     <Content Include="Content\css\app.css" />
-    <Content Include="Content\css\carousel.css" />
-    <Content Include="Content\css\fileuploader.css" />
-    <Content Include="Content\css\foundation.css" />
+    <Content Include="Content\js\foundation\app.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.accordion.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.alerts.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.buttons.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.forms.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.mediaQueryToggle.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.navigation.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.orbit.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.reveal.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.tabs.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.tooltips.js" />
+    <Content Include="Content\js\foundation\jquery.foundation.topbar.js" />
+    <Content Include="Content\js\foundation\jquery.js" />
+    <Content Include="Content\js\foundation\jquery.offcanvas.js" />
+    <Content Include="Content\js\foundation\jquery.placeholder.js" />
+    <Content Include="Content\js\foundation\modernizr.foundation.js" />
+    <Content Include="Content\js\main-built.js" />
+    <Content Include="Content\r.js" />
+    <Content Include="Content\sass\_fileuploader.scss" />
+    <Content Include="Content\images\foundation\orbit\bullets.jpg" />
+    <Content Include="Content\images\foundation\orbit\left-arrow-small.png" />
+    <Content Include="Content\images\foundation\orbit\left-arrow.png" />
+    <Content Include="Content\images\foundation\orbit\loading.gif" />
+    <Content Include="Content\images\foundation\orbit\mask-black.png" />
+    <Content Include="Content\images\foundation\orbit\pause-black.png" />
+    <Content Include="Content\images\foundation\orbit\right-arrow-small.png" />
+    <Content Include="Content\images\foundation\orbit\right-arrow.png" />
+    <Content Include="Content\images\foundation\orbit\rotator-black.png" />
+    <Content Include="Content\images\foundation\orbit\timer-black.png" />
     <Content Include="Content\js\app\controllers\cards.js" />
     <Content Include="Content\js\app\controllers\root.js" />
     <Content Include="Content\js\app\controllers\media.js" />
@@ -129,6 +158,13 @@
     <Content Include="Content\js\main.js" />
     <Content Include="Content\js\require.js" />
     <Content Include="Content\js\text.js" />
+    <Content Include="Content\sass\app.scss">
+      <Compile>False</Compile>
+      <Minify>True</Minify>
+      <CompileStyle>Nested</CompileStyle>
+      <DebugInfo>False</DebugInfo>
+    </Content>
+    <Content Include="Content\sass\_settings.scss" />
     <Content Include="Global.asax" />
     <Content Include="Content\js\lib\backbone.js" />
     <Content Include="Content\js\lib\backbone.marionette.js" />
@@ -171,6 +207,9 @@
   <ItemGroup>
     <Content Include="Views\Web.config" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="config.rb" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -201,4 +240,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PreBuildEvent>compass compile $(ProjectDir) --no-line-comments
+node $(ProjectDir)content\r.js -o $(ProjectDir)content\build.js</PreBuildEvent>
+  </PropertyGroup>
 </Project>

@@ -3,5 +3,7 @@ bin
 obj
 [Ww]eb.config
 Uploads
+.sass-cache
+node_modules
 # mstest test results
 TestResults
