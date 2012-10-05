@@ -21,7 +21,7 @@ function(Backbone, Marionette, MediaCollection, ItemView, Template){
     enableSelectMode: function(selectable){ 
       var view = this
         , options = view.options
-        , $input = view.ui.$input;
+        , $input = view.ui && view.ui.$input;
        
       selectable = selectable || options.selectable;
       

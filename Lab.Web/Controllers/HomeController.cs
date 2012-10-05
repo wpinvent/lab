@@ -1,7 +1,6 @@
-﻿using System.Web.Mvc;
+﻿using System.Linq;
+using System.Web.Mvc;
 using Lab.Web.ViewModels;
-using Lab.Data;
-using System.Linq;
 
 namespace Lab.Web.Controllers
 {

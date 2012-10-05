@@ -1,5 +1,5 @@
-﻿define(['backbone','marionette', 'syphon', 'app/models/deck','app/views/decks/table','text!app/templates/decks/index.htm'], 
-function(Backbone, Marionette, Syphon, Deck, DecksTableView, DecksIndexTemplate){
+﻿define(['backbone','marionette', 'syphon','app/data','app/models/deck','app/views/decks/table','text!app/templates/decks/index.htm'], 
+function(Backbone, Marionette, Syphon, Data, Deck, DecksTableView, DecksIndexTemplate){
 
   var view = Backbone.Marionette.Layout.extend({
     className:'decks',
@@ -17,6 +17,7 @@ function(Backbone, Marionette, Syphon, Deck, DecksTableView, DecksIndexTemplate)
     events: {'submit form' : 'createDeck'},
 
     initialize:function(){
+      console.log(Data);
       this.bindViewEvents();
     },
 
@@ -29,7 +30,7 @@ function(Backbone, Marionette, Syphon, Deck, DecksTableView, DecksIndexTemplate)
 
     createDeck:function(){
       var data = Backbone.Syphon.serialize(this);      
-      this.collection.create(data, { wait:true });
+      Data.Decks.create(data, { wait:true });
       this.resetForm();
       return false;
     },

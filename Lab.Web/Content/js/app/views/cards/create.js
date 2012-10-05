@@ -15,11 +15,9 @@ function(Backbone, Marionette, ItemTemplate){
     },
 
     bindViewEvents: function(){
-      var view = this
-        , collection = new MediaCollection();
-
+      var view = this;
       view.on('show', function(){
-        new MediaListView({ collection:view.collection });
+        new MediaListView();
       });
     },
 
