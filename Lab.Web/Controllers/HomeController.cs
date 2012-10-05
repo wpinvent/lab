@@ -18,21 +18,5 @@ namespace Lab.Web.Controllers
 
             return View(model);
         }
-
-        public ActionResult GetInitialCards()
-        {
-            return JsonNetSerializedJson(db.Cards.ToList());
-        }
-
-        public ActionResult GetInitialDecks()
-        {
-            return JsonNetSerializedJson(db.Decks.ToList());
-        }
-
-        public ActionResult GetInitialMedia()
-        {
-            return JsonNetSerializedJson(db.Media.ToList());
-        }
-
     }
 }

@@ -84,6 +84,7 @@
     <Content Include="Content\js\app\controllers\root.js" />
     <Content Include="Content\js\app\controllers\media.js" />
     <Content Include="Content\js\app\controllers\decks.js" />
+    <Content Include="Content\js\app\data.js" />
     <Content Include="Content\js\app\routers\cards.js" />
     <Content Include="Content\js\app\routers\media.js" />
     <Content Include="Content\js\app\routers\decks.js" />
@@ -134,7 +135,6 @@
     <Content Include="Content\js\lib\backbone.relational.js" />
     <Content Include="Content\js\lib\jquery.js" />
     <Content Include="Content\js\lib\underscore.js" />
-    <Content Include="x_index.htm" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
