@@ -17,7 +17,6 @@ function(Backbone, Marionette, Syphon, Data, Deck, DecksTableView, DecksIndexTem
     events: {'submit form' : 'createDeck'},
 
     initialize:function(){
-      console.log(Data);
       this.bindViewEvents();
     },
 

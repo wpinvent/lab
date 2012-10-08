@@ -37,8 +37,7 @@ requirejs(['jquery', 'underscore', 'backbone', 'marionette', 'app/app', 'app/rou
     });
 
     App.on("modal:show", function( contentView ){
-      modal.content.show( contentView );
-      modal.show();
+      modal.reveal( contentView );
     });
 
     App.on("modal:close", function(){

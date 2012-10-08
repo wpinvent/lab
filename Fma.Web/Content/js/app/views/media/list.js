@@ -1,14 +1,13 @@
-﻿define(['backbone','marionette','app/collections/media', 'app/views/media/list-item'], 
-function(Backbone, Marionette, MediaCollection, ItemView, Template){
+﻿define(['backbone','marionette','app/data','app/collections/media', 'app/views/media/list-item'], 
+function(Backbone, Marionette, Data, MediaCollection, ItemView, Template){
   var view = Backbone.Marionette.CollectionView.extend({
     tagName:'ol',
     className: 'media-list block-grid four-up',
     itemView: ItemView,
     
     initialize: function(){
+      this.collection = Data.Media;
       this.bindViewEvents();
-      this.enableSelectMode();
-      this.collection.fetch();
     },
 
     bindViewEvents:function(){
@@ -16,25 +15,6 @@ function(Backbone, Marionette, MediaCollection, ItemView, Template){
       this.on("itemview:removed:model", function(childView){
         collection.remove(childView.model);        
       })
-    },
-
-    enableSelectMode: function(selectable){ 
-      var view = this
-        , options = view.options
-        , $input = view.ui && view.ui.$input;
-       
-      selectable = selectable || options.selectable;
-      
-      if (selectable && $input.length === 1){ 
-        view.$el.addClass('selectable-items');alert('a');
-        view.on('itemview:selected', function(childView){
-          alert('4');          
-          view.selectedItemView && view.selectedItemView.$el.removeClass('selected');
-          view.selectedItemView = childView;
-          view.selectedItemView.addClass('selected');
-          $input.val(childView.model.id);
-        });
-      }
     }
   });
 

@@ -1,5 +1,5 @@
-﻿define(['backbone','marionette','uploader','app/models/media','app/views/media/list','text!app/templates/media/index.htm'], 
-function(Backbone, Marionette, Uploader, Media, MediaListView, MediaIndexTemplate){
+﻿define(['backbone','marionette','uploader','app/data','app/models/media','app/views/media/list','text!app/templates/media/index.htm'], 
+function(Backbone, Marionette, Uploader, Data, Media, MediaListView, MediaIndexTemplate){
   var view = Backbone.Marionette.Layout.extend({
     className:'media',
     template: MediaIndexTemplate,
@@ -9,13 +9,14 @@ function(Backbone, Marionette, Uploader, Media, MediaListView, MediaIndexTemplat
     },
     
     initialize:function(){
+      this.collection = Data.Media;
       this.bindViewEvents();
     },
 
     bindViewEvents: function(){
       var view = this;      
       view.on('show', function(){
-        view.media.show( new MediaListView({ collection:view.collection }) );
+        view.media.show( new MediaListView() );
       });
     },
 

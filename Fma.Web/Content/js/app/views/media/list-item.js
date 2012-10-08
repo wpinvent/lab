@@ -17,7 +17,9 @@ function(App, Backbone, Marionette, ConfirmView, Template){
         , view = new ConfirmView({
             message:"Are you sure you want to delete this image?",
             model: model,
-            confirmed: model.destroy
+            confirmed: function(){
+              model.destroy();
+            }
           });
 
       App.trigger('modal:show', view);

@@ -12,12 +12,9 @@ function(Backbone, Marionette, Foundation){
       'click .close-button':'hide'
     },
 
-    show: function(){
-      var contentView = this.content.currentView;
-      if (contentView){
-        this.setSize(contentView.options.cssSize);
-        this.content.show(contentView);
-      }
+    reveal: function(contentView){
+      this.setSize(contentView.options.cssSize);
+      this.content.show(contentView);
       $(this.el).reveal();
     },
 
