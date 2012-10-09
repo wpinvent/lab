@@ -1,12 +1,11 @@
-﻿define(['backbone','marionette','text!app/templates/decks/create.htm'], 
-function(Backbone, Marionette, ItemTemplate){
+﻿define(['jquery', 'jqueryui', 'datepicker', 'backbone','marionette', 'text!app/templates/decks/create.htm'], 
+function($, ui, datepicker, Backbone, Marionette, ItemTemplate){
   
   var view = Backbone.Marionette.ItemView.extend({
     className: 'create-deck',
     template: ItemTemplate,
 
     events:{
-      'click .cancel-button' : 'cancel',
       'click .save-button' : 'save'
     },
 
@@ -17,11 +16,11 @@ function(Backbone, Marionette, ItemTemplate){
     bindViewEvents: function(){
       var view = this;
       view.on('show', function(){
-      });
-    },
-
-    cancel: function(){
-      
+        $('input[data-datepicker]').datepicker({
+          changeMonth:true,
+          changeYear:true
+        })
+      });      
     },
 
     save: function(){

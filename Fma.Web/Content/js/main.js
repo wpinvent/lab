@@ -7,7 +7,9 @@
     jquery:     'lib/jquery',
     underscore: 'lib/underscore',
     moment:     'lib/moment',
-    uploader:   'lib/fileuploader'
+    uploader:   'lib/fileuploader',
+    jqueryui:   'lib/jquery.ui.core',
+    datepicker: 'lib/jquery.ui.datepicker'
   },
   urlArgs: "bust=" +  (new Date()).getTime()
 });
