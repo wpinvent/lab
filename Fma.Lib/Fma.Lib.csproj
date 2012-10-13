@@ -8,8 +8,8 @@
     <ProjectGuid>{18BD2279-4BC5-4213-96E6-5B90DCDE5768}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Lab.Lib</RootNamespace>
-    <AssemblyName>Lab.Lib</AssemblyName>
+    <RootNamespace>Fma.Lib</RootNamespace>
+    <AssemblyName>Fma.Lib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
