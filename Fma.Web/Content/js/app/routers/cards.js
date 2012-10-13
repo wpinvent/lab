@@ -2,6 +2,7 @@
   var router = Backbone.Marionette.AppRouter.extend({
     controller: CardsController,
     appRoutes:{      
+      'cards/:id/edit':'edit',
       'cards/new':'create',
       'cards':'index'
     }

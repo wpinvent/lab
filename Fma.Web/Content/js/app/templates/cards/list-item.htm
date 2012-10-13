@@ -1,7 +1,7 @@
 ﻿<div class="image-container">
   <figure>
-    <img src="<%= fileUrl(image.file_name) %>" />
+    <img src="<%= imageUrl() %>" />
     <figcaption class="elipses"><%= getContent %></figcaption>
   </figure>    
 </div>
-<a class="button edit-button">Edit</a> 
+<a href="#cards/<%= id %>/edit" class="button edit-button">Edit</a> 

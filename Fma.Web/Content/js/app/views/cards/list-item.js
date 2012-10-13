@@ -1,9 +1,7 @@
 ﻿
-define(['backbone','marionette','text!app/templates/cards/list-item.htm','text!app/templates/cards/list-item-edit.htm'], 
-function(Backbone, Marionette, DisplayTemplate, EditTemplate){
+define(['backbone','marionette','text!app/templates/cards/list-item.htm'], 
+function(Backbone, Marionette, DisplayTemplate){
   
-  var editClass = "edit-card";
-
   var view = Backbone.Marionette.ItemView.extend({
     tagName: 'li',
     template: DisplayTemplate,
@@ -12,45 +10,15 @@ function(Backbone, Marionette, DisplayTemplate, EditTemplate){
       var model = this.model;
       return {
         getContent: model.get('content') || "No content",
-        fileUrl:function(filename){
-          return ["//", location.host, "/uploads/", filename].join('');
+        imageUrl:function(){
+          var image = model.get('image');
+          return image ? ["//", location.host, "/uploads/", image.file_name].join('') : ["//", location.host, '/content/images/default.jpg'].join('');
         }
       }
     },
 
-    triggers:{
-      'click':'selected'
-    },
-
     events:{ 
-      'click .cancel-button' : 'cancel',
-      'click .delete-button' : 'destroy',
-      'click .edit-button' : 'edit',
-      'click .save-button' : 'save'
-    },
-
-    showEditView: function(){
-      this.options.template = EditTemplate;
-      this.$el.addClass(editClass);
-      this.render();
-    },
-
-    showDisplayView: function(){
-      this.options.template = DisplayTemplate;
-      this.$el.removeClass(editClass);
-      this.render();
-    },
-
-    edit: function(){
-      this.showEditView();
-    },
-
-    cancel: function(){
-      this.showDisplayView();
-    },
-
-    save: function(){
-
+      'click .delete-button' : 'destroy'
     },
 
     destroy: function(){

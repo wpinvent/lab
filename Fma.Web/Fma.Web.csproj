@@ -80,8 +80,10 @@
     <Content Include="Content\build.js" />
     <Content Include="Content\almond.js" />
     <Content Include="Content\css\app.css" />
+    <Content Include="Content\js\app\templates\cards\edit.htm" />
     <Content Include="Content\js\app\templates\decks\create.htm" />
     <Content Include="Content\js\app\templates\shared\confirm.htm" />
+    <Content Include="Content\js\app\views\cards\edit.js" />
     <Content Include="Content\js\app\views\decks\create.js" />
     <Content Include="Content\js\app\views\shared\confirm.js" />
     <Content Include="Content\js\foundation\app.js" />
@@ -124,7 +126,6 @@
     <Content Include="Content\js\app\routers\decks.js" />
     <Content Include="Content\js\app\routers\initializer.js" />
     <Content Include="Content\js\app\templates\cards\create.htm" />
-    <Content Include="Content\js\app\templates\cards\list-item-edit.htm" />
     <Content Include="Content\js\app\templates\cards\index.htm" />
     <Content Include="Content\js\app\templates\cards\list-item.htm" />
     <Content Include="Content\js\app\templates\decks\edit.htm" />

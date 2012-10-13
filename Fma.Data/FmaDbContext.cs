@@ -17,7 +17,7 @@ namespace Fma.Data
                 .WithMany();
 
             modelBuilder.Entity<Card>()
-                .HasRequired<Media>(c => c.Media);                
+				.HasOptional<Media>(c => c.Media);                
 
             base.OnModelCreating(modelBuilder);
         }

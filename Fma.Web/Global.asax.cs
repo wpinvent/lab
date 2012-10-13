@@ -26,21 +26,21 @@ namespace Fma.Web
 
 			routes.MapRoute(
 				"Update a card",
-				"card/{id}",
+				"cards/{id}",
 				new { controller = "Cards", action = "Update" },
 				new { httpMethod = new HttpMethodConstraint("PUT") }
 			);
 
 			routes.MapRoute(
 				"Delete a card",
-				"card/{id}",
+				"cards/{id}",
 				new { controller = "Cards", action = "Delete" },
 				new { httpMethod = new HttpMethodConstraint("DELETE") }
 			);
 
 			routes.MapRoute(
 				"Get a card",
-				"card/{id}",
+				"cards/{id}",
 				new { controller = "Cards", action = "Detail" },
 				new { httpMethod = new HttpMethodConstraint("GET") }
 			);
