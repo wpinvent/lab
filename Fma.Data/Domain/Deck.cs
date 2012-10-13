@@ -32,7 +32,7 @@ namespace Fma.Data.Domain
             if (StartsOn.HasValue && StartsOn <= DateTime.Now)
                 yield return new ValidationResult("Starting date must occur in the future", new[] { "StartsOn" });
 
-            if (StartsOn.HasValue && EndsOn.HasValue && EndsOn >= StartsOn)
+            if (StartsOn.HasValue && EndsOn.HasValue && StartsOn.Value >= EndsOn.Value)
                 yield return new ValidationResult("Date to end must occur after the start date.", new [] { "EndsOn" });
         }
     }

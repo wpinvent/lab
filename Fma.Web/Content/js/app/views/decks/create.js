@@ -1,5 +1,5 @@
-﻿define(['jquery', 'jqueryui', 'datepicker', 'backbone','marionette', 'text!app/templates/decks/create.htm'], 
-function($, ui, datepicker, Backbone, Marionette, ItemTemplate){
+﻿define(['jquery', 'jqueryui', 'datepicker', 'backbone','marionette','app/data','text!app/templates/decks/create.htm'], 
+function($, ui, datepicker, Backbone, Marionette, Data, ItemTemplate){
   
   var view = Backbone.Marionette.ItemView.extend({
     className: 'create-deck',
@@ -24,7 +24,10 @@ function($, ui, datepicker, Backbone, Marionette, ItemTemplate){
     },
 
     save: function(){
-
+      var data = Backbone.Syphon.serialize(this);
+      Data.Decks.create(data, { wait:true });
+      Backbone.history.navigate("decks", { trigger:true });
+      return false;
     }
 
   });

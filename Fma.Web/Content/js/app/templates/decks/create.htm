@@ -1,39 +1,25 @@
 ﻿<form action="">
   <div class="row">
     <div class="twelve columns">
-      <label for="url">Title:</label>
-      <input id="title" name="title" type="text" placeholder="Give this deck a title." />
+      <label for="Title">Title:</label>
+      <input id="Title" name="Title" type="text" placeholder="Give this deck a title." />
     </div>
   </div>
   <div class="row">
     <div class="six columns">
-      <label for="caption">Start date:</label>
-      <input id="Text1" name="title" type="text" placeholder="MM/DD/YYYY" data-datepicker />
+      <label for="StartsOn">Start date:</label>
+      <input id="StartsOn" name="StartsOn" type="text" placeholder="MM/DD/YYYY" data-datepicker />
     </div>
     <div class="six columns">
-      <label for="caption">End date:</label>
-      <input id="Text2" name="title" type="text" placeholder="MM/DD/YYYY" data-datepicker />
-    </div>
-  </div>
-  <div class="row">
-    <div class="twelve columns">
-      <label>Cards:</label>
-      <div id="cards">
-        <ol class="selected-cards">
-          <li>
-            <div class="add-one">
-              Add a card
-            </div>
-          </li>
-        </ol>
-      </div>
+      <label for="EndsOn">End date:</label>
+      <input id="EndsOn" name="EndsOn" type="text" placeholder="MM/DD/YYYY" data-datepicker />
     </div>
   </div>
   <div class="row">
     <div class="twelve columns">
       <div class="pull right">
         <a class="button alert cancel-button" href="#decks">Cancel</a>
-        <button type="submit" class="button">Save</button>
+        <button type="submit" class="save-button button">Save</button>
       </div>
     </div>
   </div>
