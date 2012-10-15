@@ -11,9 +11,11 @@ function(app, Data, Card, CardCollection, CardsIndexView, CardCreateView, CardEd
   var methods = {
     index: function(){
       app.main.show( new CardsIndexView() );
+      app.trigger('nav:changed','cards');
     },
     create: function(){
       app.main.show( new CardCreateView() );
+      app.trigger('nav:changed','cards');
     },
     edit: function(id){
       var model = Data.Cards.find(function(card){ 
@@ -21,6 +23,7 @@ function(app, Data, Card, CardCollection, CardsIndexView, CardCreateView, CardEd
       });
       
       app.main.show(new CardEditView({ model:model }) );
+      app.trigger('nav:changed','cards');
     }
   };
   return methods;

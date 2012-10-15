@@ -48,6 +48,21 @@ requirejs(['jquery', 'underscore', 'backbone', 'marionette', 'app/app', 'app/rou
       modal.hide();
     });
 
+    App.on("nav:changed", function(which){
+      var $active = $('#nav .active'), $next;
+      
+      switch(which){
+        case 'decks': $next = $('.decks-nav'); break;
+        case 'cards': $next = $('.cards-nav'); break;
+        case 'media': $next = $('.media-nav'); break;
+      }
+      
+      if ($active.length && !$next.is('.active'))
+          $active.removeClass('active');
+      
+      $next.addClass('active');
+    });
+
     App.start();
 });
 
