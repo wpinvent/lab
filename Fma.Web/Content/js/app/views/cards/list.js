@@ -2,7 +2,7 @@
 function(Backbone, Marionette,Data, SlideCollection, ItemView, Template){
   var view = Backbone.Marionette.CollectionView.extend({
     tagName:'ol',
-    className: 'card-list plain block-grid two-up',
+    className: 'card-list plain block-grid three-up',
     itemView: ItemView,
     collection: Data.Cards,
       

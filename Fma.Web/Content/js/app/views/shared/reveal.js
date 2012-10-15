@@ -15,7 +15,9 @@ function(Backbone, Marionette, Foundation){
     reveal: function(contentView){
       this.setSize(contentView.options.cssSize);
       this.content.show(contentView);
-      $(this.el).reveal();
+      $(this.el).reveal({
+        animationSpeed: 100      
+      });
     },
 
     hide: function(){

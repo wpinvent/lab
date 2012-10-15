@@ -4,6 +4,7 @@
 @import "themes/flick/theme";
 
 html { overflow-y:scroll }
+body { padding-top:75px }
 fieldset { padding:15px }
 textarea { min-height:150px; resize:vertical }
 
@@ -17,7 +18,7 @@ ol.plain, ul.plain { margin:0; padding:0; list-style:none }
 
 /* `Structure
 /******************************/
-.container { margin:0 auto; max-width:1120px }
+.container { margin:0 auto }
   .row { width:auto }
   
 /* `Gallery
@@ -45,7 +46,7 @@ ol.plain, ul.plain { margin:0; padding:0; list-style:none }
 /* `Tables
 /******************************/
 table { width:100% }
-  table .title { width:50% }
+  table .title { width:70% }
   
 .card-list {  }
   .card-list li { position:relative; padding:20px }

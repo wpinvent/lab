@@ -10,11 +10,7 @@ function(Backbone, Marionette, Syphon, Data, Card, ItemTemplate){
     },
 
     initialize: function(){
-      this.bindViewEvents();
-    },
-
-    bindViewEvents: function(){
-
+      Backbone.Validation.bind(this, { forceUpdate:true });
     },
 
     save: function(){
@@ -22,18 +18,15 @@ function(Backbone, Marionette, Syphon, Data, Card, ItemTemplate){
         , model = this.model;
       
       model.set(data);
-      
+      console.log(model.isValid());
+
       if (model.isValid()){
         model.save({}, { 
-          wait:true, 
-          silent:true,
           success:function(){
-            Data.Cards.add(model);
             Backbone.history.navigate("cards", { trigger:true });
           }
         });      
-      }
-        
+      }        
       return false;
     }
 
