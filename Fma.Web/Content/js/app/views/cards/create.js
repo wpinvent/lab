@@ -1,5 +1,5 @@
-﻿define(['backbone','marionette','syphon','app/data','app/models/card','text!app/templates/cards/create.htm'], 
-function(Backbone, Marionette, Syphon, Data, Card, ItemTemplate){
+﻿define(['backbone','marionette','validation','syphon','app/data','app/models/card','text!app/templates/cards/create.htm'], 
+function(Backbone, Marionette, Validation, Syphon, Data, Card, ItemTemplate){
   
   var view = Backbone.Marionette.ItemView.extend({
     className: 'create-card',
@@ -11,6 +11,8 @@ function(Backbone, Marionette, Syphon, Data, Card, ItemTemplate){
 
     initialize: function(){
       this.bindViewEvents();
+      this.model = new Card();
+      Backbone.Validation.bind(this, { forceUpdate:true });
     },
 
     bindViewEvents: function(){
@@ -18,9 +20,22 @@ function(Backbone, Marionette, Syphon, Data, Card, ItemTemplate){
     },
 
     save: function(){
-      var data = Backbone.Syphon.serialize(this);
-      Data.Cards.create(data, { wait:true });
-      Backbone.history.navigate("cards", { trigger:true });
+      var data = Backbone.Syphon.serialize(this)
+        , model = this.model;
+      
+      model.set(data);
+      
+      if (model.isValid()){
+        model.save({}, { 
+          wait:true, 
+          silent:true,
+          success:function(){
+            Data.Cards.add(model);
+            Backbone.history.navigate("cards", { trigger:true });
+          }
+        });      
+      }
+        
       return false;
     }
 

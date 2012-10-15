@@ -1,5 +1,5 @@
-﻿define(['jquery', 'jqueryui', 'datepicker', 'backbone','marionette','app/data','text!app/templates/decks/create.htm'], 
-function($, ui, datepicker, Backbone, Marionette, Data, ItemTemplate){
+﻿define(['jquery', 'jqueryui', 'datepicker', 'backbone','marionette','app/data','app/models/deck','text!app/templates/decks/create.htm'], 
+function($, ui, datepicker, Backbone, Marionette, Data, Deck, ItemTemplate){
   
   var view = Backbone.Marionette.ItemView.extend({
     className: 'create-deck',
@@ -11,6 +11,8 @@ function($, ui, datepicker, Backbone, Marionette, Data, ItemTemplate){
 
     initialize: function(){
       this.bindViewEvents();
+      this.model = new Deck();
+      Backbone.Validation.bind(this, { forceUpdate:true });
     },
 
     bindViewEvents: function(){
@@ -24,9 +26,22 @@ function($, ui, datepicker, Backbone, Marionette, Data, ItemTemplate){
     },
 
     save: function(){
-      var data = Backbone.Syphon.serialize(this);
-      Data.Decks.create(data, { wait:true });
-      Backbone.history.navigate("decks", { trigger:true });
+      var data = Backbone.Syphon.serialize(this)
+        , model = this.model;
+      
+      model.set(data);
+      
+      if (model.isValid()){
+        model.save({}, { 
+          wait:true, 
+          silent:true,
+          success:function(){
+            Data.Decks.add(model);
+            Backbone.history.navigate("decks", { trigger:true });
+          }
+        });      
+      }
+        
       return false;
     }
 

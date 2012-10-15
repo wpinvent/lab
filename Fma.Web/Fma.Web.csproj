@@ -102,6 +102,8 @@
     <Content Include="Content\js\foundation\jquery.offcanvas.js" />
     <Content Include="Content\js\foundation\jquery.placeholder.js" />
     <Content Include="Content\js\foundation\modernizr.foundation.js" />
+    <Content Include="Content\js\lib\backbone.validation.js" />
+    <Content Include="Content\js\lib\backbone.validation.foundation.js" />
     <Content Include="Content\js\lib\rivets.backbone.js" />
     <Content Include="Content\js\lib\rivets.js" />
     <Content Include="Content\r.js" />

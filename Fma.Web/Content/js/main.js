@@ -9,7 +9,9 @@
     moment:     'lib/moment',
     uploader:   'lib/fileuploader',
     jqueryui:   'lib/jquery.ui.core',
-    datepicker: 'lib/jquery.ui.datepicker'
+    datepicker: 'lib/jquery.ui.datepicker',
+    validation: 'lib/backbone.validation',
+    validate: 'lib/backbone.validation.bootstrap'
   },
   urlArgs: "bust=" +  (new Date()).getTime()
 });

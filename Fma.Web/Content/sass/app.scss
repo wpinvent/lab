@@ -3,6 +3,7 @@
 @import "fileuploader";
 @import "themes/flick/theme";
 
+html { overflow-y:scroll }
 fieldset { padding:15px }
 textarea { min-height:150px; resize:vertical }
 
